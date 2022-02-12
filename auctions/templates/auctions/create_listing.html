@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block header %}
+    {{ header }}
+{% endblock %}
+
+{% block subheader %}
+    {{ subheader }}
+{% endblock %}
+
+{% block body %}
+    <div class="form-group">
+        <form action="{% url 'create' %}" method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Create" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

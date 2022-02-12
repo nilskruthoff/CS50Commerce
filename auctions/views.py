@@ -3,12 +3,25 @@ from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from .forms.AuctionForm import AuctionForm
 from .models import User
 
 
+def create_listing(request):
+    if request.method == 'POST':
+        form = AuctionForm(request.POST)
+        return render(request, 'auctions/index.html')
+    else:
+        return render(request, 'auctions/create_listing.html', {
+            'page_title': 'New Auction',
+            'header': 'New Auction',
+            'subheader': 'Create a new auction listing',
+            'form': AuctionForm()
+        })
+
+
 def template(request):
-    return render(request, "auctions/layout1.html")
+    return render(request, "auctions/layout.html")
 
 
 def index(request):

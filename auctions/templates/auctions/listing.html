@@ -53,6 +53,25 @@
             </div>
 
             <div class="card">
+                <h1 class="card-title">Bids</h1>
+                <form action="{% url 'place_bid' auction.id %}" method="post" class="form-group">
+                    {% csrf_token %}
+                    <input type="number" class="form-control" placeholder="Current Price: {{ auction.price }}" required name="price" min="{{ auction.price }}" step="1.00" pattern="^\d+(?:\.\d{1,2})?$">
+                    <input type="submit" class="form-control" value="Place Bid">
+                </form>
+                <h3 class="card-title">Bid History</h3>
+                {% if bids %}
+                    {% for bid in bids reversed %}
+                        <h3>{{ bid.user.username }}</h3>
+                        <p>{{ bid.price }} €</p>
+                        <p>{{ bid.date }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No bids.</p>
+                {% endif %}
+            </div>
+
+            <div class="card">
                 <h1 class="card-title">Description</h1>
                 <p class="card-body">
                     {{ auction.description }}
@@ -62,7 +81,7 @@
             <div class="card">
                 <h1 class="card-title">Comments</h1>
                 {% if comments %}
-                    {% for comment in comments %}
+                    {% for comment in comments reversed %}
                         <h3>{{ comment.title }}</h3>
                         <p>{{ comment.comment }}</p>
                         <p>{{ comment.user.username }}</p>

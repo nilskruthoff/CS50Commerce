@@ -1,18 +1,19 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
+from django.forms.models import model_to_dict
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from .services import AuctionsService
+
 from .forms.AuctionForm import AuctionForm
 from .forms.CommentForm import CommentForm
-from django.forms.models import model_to_dict
-#from .models import User, AuctionModel
+# from .models import User, AuctionModel
 from .models.AuctionModel import AuctionModel
-from .models.UserModel import User
+from .models.BidModel import BidModel
 from .models.CommentModel import CommentModel
+from .models.UserModel import User
 from .models.WatchlistModel import WatchlistModel
-from .models.enums import CategoryChoice
-from datetime import datetime
 
 
 def create_listing(request):
@@ -44,15 +45,22 @@ def create_listing(request):
         })
 
 
-def index(request):
-    data = AuctionModel.objects.all()
+def render_listings(request, auctions_type):
     auctions = []
+    if auctions_type == 'all':
+        auctions = AuctionsService.get_all_auctions()
+    elif auctions_type == 'watchlist':
+        auctions = AuctionsService.get_watchlist_auctions(request)
+    elif auctions_type == 'user':
+        auctions = AuctionsService.get_user_auctions(request)
 
-    for auction in data:
-        auction = model_to_dict(auction)
-        auction['url'] = auction['img'].url[16:]
-        auction['description'] = auction['description'][:100] + "... (see more)"
-        auctions.append(auction)
+    return render(request, "auctions/index.html", {
+        "auctions": auctions,
+    })
+
+
+def index(request):
+    auctions = AuctionsService.get_all_auctions()
 
     return render(request, "auctions/index.html", {
         "auctions": auctions,
@@ -69,8 +77,9 @@ def listing(request, auction_id):
         is_watchlist = True
 
     return render(request, 'auctions/listing.html', {
-        "comments": auction.commentmodel_set.all(),
         "auction": auction_dict,
+        "comments": auction.commentmodel_set.all(),
+        "bids": auction.bidmodel_set.all(),
         "username": auction.user.username,
         "is_watchlist": is_watchlist
     })
@@ -87,7 +96,7 @@ def add_comment(request, auction_id):
             comment.user = request.user
 
             comment.save()
-            return redirect('listing', id=auction_id)
+            return redirect('listing', auction_id=auction_id)
         else:
             return redirect('index')
 
@@ -175,3 +184,21 @@ def remove_watchlist(request, auction_id):
     else:
         # TODO Message Fail
         return HttpResponse(f"Auction is not in watchlist")
+
+
+def place_bid(request, auction_id):
+    if request.method == 'POST':
+        bid = BidModel()
+        # TODO Validate BIDS
+        auction = AuctionModel.objects.get(id=auction_id)
+        bid.price = request.POST['price']
+        bid.user = request.user
+        bid.auction = auction
+        bid.save()
+        # TODO Message success
+        auction.price = bid.price
+        auction.save()
+        return redirect('listing', auction_id=auction_id)
+    else:
+        # TODO Message fail
+        return redirect('listing', auction_id=auction_id)

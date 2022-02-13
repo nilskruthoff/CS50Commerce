@@ -1,4 +1,5 @@
 {% extends "auctions/layout.html" %}
+{% load static %}
 
 {% block title %}
     Auctions
@@ -13,5 +14,31 @@
 {% endblock %}
 
 {% block body %}
-    TEST
+        {% for auction in auctions %}
+        {% if forloop.first %}<div class="row">{% endif %}
+
+        <div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
+        <a href="{% url 'listing' auction.id %}">
+            <!-- Picture -->
+            <div class="card card-border">
+                <img src="{% static auction.url %}" class="card-img-top img-listing" alt="{{ auction.title }}">
+                <!-- Card Body -->
+                <div class="card-body">
+                    <h5 class="card-title">{{ auction.title}}</h5>
+                    <p class="card-text">{{ auction.description }}</p>
+                    <p class="card-text">{{ auction.price }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ auction.category }}</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">View Lisiting</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+            </a>
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
 {% endblock %}

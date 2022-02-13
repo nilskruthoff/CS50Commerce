@@ -25,7 +25,8 @@ class AuctionForm(ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control my-2', 'placeholder': 'e.g Vintage T-Shirt'}),
             'description': forms.Textarea(attrs={'class': 'form-control my-2'}),
             'price': forms.NumberInput(attrs={'class': 'form-control my-2', 'placeholder': 'e.g 20.00€'}),
-            'category': forms.Select(attrs={'class': 'form-control my-2', 'placeholder': 'e. g Technology and Electronics'}),
+            'category': forms.Select(attrs={'class': 'form-control my-2', 'placeholder': 'e. g Technology and '
+                                                                                         'Electronics'}),
             'start': DateInput(attrs={'class': 'form-control my-2', 'placeholder': 'MM-DD-YYYY HH:SS'}),
             'end': DateInput(attrs={'class': 'form-control my-2', 'placeholder': 'MM-DD-YYYY HH:SS'}),
             'img': forms.FileInput(attrs={'class': 'form-control my-2'})

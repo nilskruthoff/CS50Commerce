@@ -18,21 +18,21 @@
         <div class="col-lg-8 col-sm-12">
             <div class="card align-items-center">
                 <img src="{% static auction.url %}" class="card-img-top" style="width: 35%" alt="{{ auction.title }}">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title text-center">{{ auction.title }}</h1>
-                        <h1 class="card-subtitle text-center">{{ auction.price }}</h1>
-                        <h1 class="card-subtitle text-center">{{ auction.category }}</h1>
-                        <p class="card-text text-center">Adresse</p>
-                        <p class="card-text text-center">{{ auction.end }}</p>
-                        <p class="card-text text-center">Bids</p>
-                        {% if is_watchlist %}
-                            <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
-                        {% else %}
-                            <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
-                        {% endif %}
+            </div>
 
-                    </div>
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ auction.title }}</h1>
+                    <h1 class="card-subtitle">{{ auction.price }}</h1>
+                    <h1 class="card-subtitle">{{ auction.category }}</h1>
+                    <p class="card-text">Adresse</p>
+                    <p class="card-text">{{ auction.end }}</p>
+                    <p class="card-text">Bids</p>
+                    {% if is_watchlist %}
+                        <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
+                    {% else %}
+                        <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                    {% endif %}
                 </div>
             </div>
 

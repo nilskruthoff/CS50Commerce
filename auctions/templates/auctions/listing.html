@@ -61,9 +61,9 @@
                 </form>
                 <h3 class="card-title">Bid History</h3>
                 {% if bids %}
-                    {% for bid in bids %}
+                    {% for bid in bids reversed %}
                         <h3>{{ bid.user.username }}</h3>
-                        <p>{{ bid.price }}</p>
+                        <p>{{ bid.price }} €</p>
                         <p>{{ bid.date }}</p>
                     {% endfor %}
                 {% else %}
@@ -81,7 +81,7 @@
             <div class="card">
                 <h1 class="card-title">Comments</h1>
                 {% if comments %}
-                    {% for comment in comments %}
+                    {% for comment in comments reversed %}
                         <h3>{{ comment.title }}</h3>
                         <p>{{ comment.comment }}</p>
                         <p>{{ comment.user.username }}</p>

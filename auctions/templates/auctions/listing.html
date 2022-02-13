@@ -26,6 +26,12 @@
                         <p class="card-text text-center">Adresse</p>
                         <p class="card-text text-center">{{ auction.end }}</p>
                         <p class="card-text text-center">Bids</p>
+                        {% if is_watchlist %}
+                            <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
+                        {% else %}
+                            <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                        {% endif %}
+
                     </div>
                 </div>
             </div>

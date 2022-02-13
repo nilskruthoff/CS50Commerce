@@ -18,15 +18,21 @@
         <div class="col-lg-8 col-sm-12">
             <div class="card align-items-center">
                 <img src="{% static auction.url %}" class="card-img-top" style="width: 35%" alt="{{ auction.title }}">
-                <div class="card">
-                    <div class="card-body">
-                        <h1 class="card-title text-center">{{ auction.title }}</h1>
-                        <h1 class="card-subtitle text-center">{{ auction.price }}</h1>
-                        <h1 class="card-subtitle text-center">Kategory</h1>
-                        <p class="card-text text-center">Adresse</p>
-                        <p class="card-text text-center">Ende</p>
-                        <p class="card-text text-center">Bids</p>
-                    </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <h1 class="card-title">{{ auction.title }}</h1>
+                    <h1 class="card-subtitle">{{ auction.price }}</h1>
+                    <h1 class="card-subtitle">{{ auction.category }}</h1>
+                    <p class="card-text">Adresse</p>
+                    <p class="card-text">{{ auction.end }}</p>
+                    <p class="card-text">Bids</p>
+                    {% if is_watchlist %}
+                        <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
+                    {% else %}
+                        <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                    {% endif %}
                 </div>
             </div>
 
@@ -36,7 +42,7 @@
                     <tbody>
                         <tr>
                             <td>Author</td>
-                            <td>Author</td>
+                            <td>{{ username }}</td>
                         </tr>
                         <tr>
                             <td>Shipping</td>
@@ -49,13 +55,25 @@
             <div class="card">
                 <h1 class="card-title">Description</h1>
                 <p class="card-body">
-                    Hier kommt description
+                    {{ auction.description }}
                 </p>
             </div>
 
             <div class="card">
                 <h1 class="card-title">Comments</h1>
-                <p class="card-body">Kommentare</p>
+                {% if comments %}
+                    {% for comment in comments %}
+                        <h3>{{ comment.title }}</h3>
+                        <p>{{ comment.comment }}</p>
+                        <p>{{ comment.user.username }}</p>
+                        <p>{{ comment.date }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>No comments.</p>
+                {% endif %}
+                <form action="{% url 'add_comment' auction.id %}" method="get">
+                    <input type="submit" value="Create Comment">
+                </form>
             </div>
         </div>
         <div class="col-lg-2 col-sm-0"></div>

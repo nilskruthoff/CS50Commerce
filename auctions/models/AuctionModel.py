@@ -1,6 +1,5 @@
 from django.db import models
 from django.forms import forms
-
 from .UserModel import User
 from .enums import CategoryChoice
 

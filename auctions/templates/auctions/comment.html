@@ -1,0 +1,23 @@
+{% extends "auctions/layout.html" %}
+{% load static %}
+
+{% block title %}
+    Comment
+{% endblock %}
+
+{% block header %}
+    Add a new Comment
+{% endblock %}
+
+{% block subheader %}
+{% endblock %}
+
+{% block body %}
+    <div class="form-group">
+        <form action="{% url 'add_comment' auction.id %}" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Create Comment">
+        </form>
+    </div>
+{% endblock %}

@@ -4,10 +4,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms.AuctionForm import AuctionForm
+from .forms.CommentForm import CommentForm
 from django.forms.models import model_to_dict
 #from .models import User, AuctionModel
 from .models.AuctionModel import AuctionModel
 from .models.UserModel import User
+from .models.CommentModel import CommentModel
 from .models.enums import CategoryChoice
 from datetime import datetime
 
@@ -58,11 +60,35 @@ def index(request):
 
 def listing(request, id):
     auction = AuctionModel.objects.get(id=id)
-    auction = model_to_dict(auction)
-    auction['url'] = auction['img'].url[16:]
+    auction_dict = model_to_dict(auction)
+    auction_dict['url'] = auction_dict['img'].url[16:]
     return render(request, 'auctions/listing.html', {
-        "auction": auction
+        "comments": auction.commentmodel_set.all(),
+        "auction": auction_dict,
+        "username": auction.user.username
     })
+
+
+def add_comment(request, auction_id):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = CommentModel()
+            comment.title = form.cleaned_data['title']
+            comment.comment = form.cleaned_data['comment']
+            comment.auction = AuctionModel.objects.get(id=auction_id)
+            comment.user = request.user
+
+            comment.save()
+            return redirect('listing', id=auction_id)
+        else:
+            return redirect('index')
+
+    else:
+        return render(request, 'auctions/comment.html', {
+            'auction': AuctionModel.objects.get(id=auction_id),
+            'form': CommentForm()
+        })
 
 
 def login_view(request):

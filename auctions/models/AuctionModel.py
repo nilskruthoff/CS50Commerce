@@ -15,4 +15,4 @@ class AuctionModel(models.Model):
     start = models.DateField(default=None)
     end = models.DateField(default=None)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
-    img = models.ImageField(upload_to='images/%Y/%m/%d/', blank=True, null=True)
+    img = models.ImageField(upload_to='auctions/static/resources/%Y/%m/%d', blank=True, null=True)

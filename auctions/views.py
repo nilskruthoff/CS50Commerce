@@ -4,7 +4,11 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms.AuctionForm import AuctionForm
-from .models import User, AuctionModel
+from django.forms.models import model_to_dict
+#from .models import User, AuctionModel
+from .models.AuctionModel import AuctionModel
+from .models.UserModel import User
+from .models.enums import CategoryChoice
 from datetime import datetime
 
 
@@ -37,12 +41,28 @@ def create_listing(request):
         })
 
 
-def template(request):
-    return render(request, "auctions/layout.html")
-
-
 def index(request):
-    return render(request, "auctions/index.html")
+    data = AuctionModel.objects.all()
+    auctions = []
+
+    for auction in data:
+        auction = model_to_dict(auction)
+        auction['url'] = auction['img'].url[16:]
+        auction['description'] = auction['description'][:100] + "... (see more)"
+        auctions.append(auction)
+
+    return render(request, "auctions/index.html", {
+        "auctions": auctions,
+    })
+
+
+def listing(request, id):
+    auction = AuctionModel.objects.get(id=id)
+    auction = model_to_dict(auction)
+    auction['url'] = auction['img'].url[16:]
+    return render(request, 'auctions/listing.html', {
+        "auction": auction
+    })
 
 
 def login_view(request):

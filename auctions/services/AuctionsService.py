@@ -11,6 +11,7 @@ def prepare_all_auctions(raw_auctions):
         auction = model_to_dict(auction)
         auction['url'] = auction['img'].url[16:]
         auction['description'] = auction['description'][:100] + "... (see more)"
+        auction['category'] = get_category(auction['category'])
         auctions.append(auction)
     return auctions
 
@@ -20,6 +21,7 @@ def prepare_auctions(raw_auctions):
     for auction in raw_auctions:
         auction = model_to_dict(auction)
         auction['url'] = auction['img'].url[16:]
+        auction['category'] = get_category(auction['category'])
         auctions.append(auction)
     return auctions
 
@@ -38,3 +40,15 @@ def get_watchlist_auctions(request):
 
 def get_user_auctions(request):
     return prepare_auctions(User.objects.get(id=request.user.id).auctionmodel_set.all())
+
+
+def get_category_auctions(category):
+    return prepare_auctions(AuctionModel.objects.filter(category=category))
+
+
+def get_category(cat):
+    return dict(zip(AuctionModel.Category.values, AuctionModel.Category.labels))[cat]
+
+
+def get_shipping_method(ship):
+    return dict(zip(AuctionModel.Shipping.values, AuctionModel.Shipping.labels))[ship]

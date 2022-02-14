@@ -53,6 +53,8 @@ def render_listings(request, auctions_type):
         auctions = AuctionsService.get_watchlist_auctions(request)
     elif auctions_type == 'user':
         auctions = AuctionsService.get_user_auctions(request)
+    elif auctions_type in AuctionModel.Category.values:
+        auctions = AuctionsService.get_category_auctions(auctions_type)
 
     return render(request, "auctions/index.html", {
         "auctions": auctions,
@@ -76,12 +78,22 @@ def listing(request, auction_id):
     if WatchlistModel.objects.filter(auction_id=auction_id).exists():
         is_watchlist = True
 
+    is_owner = False
+    if auction.user == request.user:
+        is_owner = True
+
+    has_won = False
+    if request.user == auction.winner:
+        has_won = True
+
     return render(request, 'auctions/listing.html', {
         "auction": auction_dict,
         "comments": auction.commentmodel_set.all(),
         "bids": auction.bidmodel_set.all(),
         "username": auction.user.username,
-        "is_watchlist": is_watchlist
+        "is_watchlist": is_watchlist,
+        "is_owner": is_owner,
+        "has_won": has_won
     })
 
 
@@ -202,3 +214,21 @@ def place_bid(request, auction_id):
     else:
         # TODO Message fail
         return redirect('listing', auction_id=auction_id)
+
+
+def categories(request, category):
+    categories = dict(zip(AuctionModel.Category.values, AuctionModel.Category.labels))
+    if category == 'all':
+        return render(request, 'auctions/category.html', {'categories': categories})
+    else:
+        auctions = AuctionsService.get_category_auctions(category)
+        return render(request, 'auctions/index.html', {'auctions': auctions})
+
+
+def remove(request, auction_id):
+    auction = AuctionModel.objects.get(id=auction_id)
+    last_bid = list(auction.bidmodel_set.all())[-1]
+    auction.is_active = False
+    auction.winner = last_bid.user
+    auction.save()
+    return redirect('index')

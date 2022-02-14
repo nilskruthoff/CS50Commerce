@@ -10,9 +10,12 @@ urlpatterns = [
     path("todo/<str:title>", views.todo, name="todo"),
     path("create", views.create_listing, name="create"),
     path("auction/<str:auctions_type>/show", views.render_listings, name="render_auctions"),
+    path("user/<str:auctions_type>", views.render_listings, name="render_watchlist"),
+    path("category/<str:category>", views.categories, name="categories"),
     path("auction/<int:auction_id>/", views.listing, name="listing"),
     path("auction/<int:auction_id>/comment", views.add_comment, name="add_comment"),
     path("auction/<int:auction_id>/watchlist/add", views.add_watchlist, name="add_watchlist"),
     path("auction/<int:auction_id>/watchlist/remove", views.remove_watchlist, name="remove_watchlist"),
-    path("auction/<int:auction_id>/bid", views.place_bid, name="place_bid")
+    path("auction/<int:auction_id>/bid", views.place_bid, name="place_bid"),
+    path("auction/<int:auction_id>/remove", views.remove, name="remove_auction"),
 ]

@@ -33,6 +33,12 @@
                     {% else %}
                         <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
                     {% endif %}
+
+                    {% if is_owner %}
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#closeAuctionModal">
+                            Close Auction
+                        </button>
+                    {% endif %}
                 </div>
             </div>
 
@@ -96,5 +102,25 @@
             </div>
         </div>
         <div class="col-lg-2 col-sm-0"></div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="closeAuctionModal" tabindex="-1" aria-labelledby="closeAuctionLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="closeAuctionLabel">Close your Auction</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <p>If you close your auction, the last bidder will win this auction.</p>
+              <p>Are you sure, that you want to close your auction?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
+            <a href="{% url 'remove_auction' auction.id %}" class="btn btn-primary">Close Auction</a>
+          </div>
+        </div>
+      </div>
     </div>
 {% endblock %}

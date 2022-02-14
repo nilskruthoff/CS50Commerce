@@ -78,12 +78,17 @@ def listing(request, auction_id):
     if WatchlistModel.objects.filter(auction_id=auction_id).exists():
         is_watchlist = True
 
+    is_owner = False
+    if auction.user == request.user:
+        is_owner = True
+
     return render(request, 'auctions/listing.html', {
         "auction": auction_dict,
         "comments": auction.commentmodel_set.all(),
         "bids": auction.bidmodel_set.all(),
         "username": auction.user.username,
-        "is_watchlist": is_watchlist
+        "is_watchlist": is_watchlist,
+        "is_owner": is_owner
     })
 
 
@@ -213,3 +218,9 @@ def categories(request, category):
     else:
         auctions = AuctionsService.get_category_auctions(category)
         return render(request, 'auctions/index.html', {'auctions': auctions})
+
+
+def remove(request, auction_id):
+    auction = AuctionModel.objects.get(id=auction_id)
+    auction.delete()
+    return redirect('index')

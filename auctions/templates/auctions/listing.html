@@ -13,6 +13,12 @@
 {% endblock %}
 
 {% block body %}
+    {% if has_won %}
+    <div class="alert alert-success">
+        Congratulations, You have won this auction for {{ auction.price }}
+    </div>
+    {% endif %}
+
     <div class="row py-5">
         <div class="col-lg-2 col-sm-0"></div>
         <div class="col-lg-8 col-sm-12">
@@ -60,11 +66,17 @@
 
             <div class="card">
                 <h1 class="card-title">Bids</h1>
+                {% if auction.is_active %}
                 <form action="{% url 'place_bid' auction.id %}" method="post" class="form-group">
                     {% csrf_token %}
                     <input type="number" class="form-control" placeholder="Current Price: {{ auction.price }}" required name="price" min="{{ auction.price }}" step="1.00" pattern="^\d+(?:\.\d{1,2})?$">
                     <input type="submit" class="form-control" value="Place Bid">
                 </form>
+                {% else %}
+                    <div class="alert alert-warning">
+                        This Auction is already closed.
+                    </div>
+                {% endif %}
                 <h3 class="card-title">Bid History</h3>
                 {% if bids %}
                     {% for bid in bids reversed %}

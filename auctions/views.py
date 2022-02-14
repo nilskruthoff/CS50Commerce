@@ -82,13 +82,18 @@ def listing(request, auction_id):
     if auction.user == request.user:
         is_owner = True
 
+    has_won = False
+    if request.user == auction.winner:
+        has_won = True
+
     return render(request, 'auctions/listing.html', {
         "auction": auction_dict,
         "comments": auction.commentmodel_set.all(),
         "bids": auction.bidmodel_set.all(),
         "username": auction.user.username,
         "is_watchlist": is_watchlist,
-        "is_owner": is_owner
+        "is_owner": is_owner,
+        "has_won": has_won
     })
 
 
@@ -222,5 +227,8 @@ def categories(request, category):
 
 def remove(request, auction_id):
     auction = AuctionModel.objects.get(id=auction_id)
-    auction.delete()
+    last_bid = list(auction.bidmodel_set.all())[-1]
+    auction.is_active = False
+    auction.winner = last_bid.user
+    auction.save()
     return redirect('index')

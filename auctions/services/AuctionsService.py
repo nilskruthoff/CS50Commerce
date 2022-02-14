@@ -42,6 +42,10 @@ def get_user_auctions(request):
     return prepare_auctions(User.objects.get(id=request.user.id).auctionmodel_set.all())
 
 
+def get_category_auctions(category):
+    return prepare_auctions(AuctionModel.objects.filter(category=category))
+
+
 def get_category(cat):
     return dict(zip(AuctionModel.Category.values, AuctionModel.Category.labels))[cat]
 

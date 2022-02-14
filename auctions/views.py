@@ -53,6 +53,8 @@ def render_listings(request, auctions_type):
         auctions = AuctionsService.get_watchlist_auctions(request)
     elif auctions_type == 'user':
         auctions = AuctionsService.get_user_auctions(request)
+    elif auctions_type in AuctionModel.Category.values:
+        auctions = AuctionsService.get_category_auctions(auctions_type)
 
     return render(request, "auctions/index.html", {
         "auctions": auctions,
@@ -202,3 +204,12 @@ def place_bid(request, auction_id):
     else:
         # TODO Message fail
         return redirect('listing', auction_id=auction_id)
+
+
+def categories(request, category):
+    categories = dict(zip(AuctionModel.Category.values, AuctionModel.Category.labels))
+    if category == 'all':
+        return render(request, 'auctions/category.html', {'categories': categories})
+    else:
+        auctions = AuctionsService.get_category_auctions(category)
+        return render(request, 'auctions/index.html', {'auctions': auctions})

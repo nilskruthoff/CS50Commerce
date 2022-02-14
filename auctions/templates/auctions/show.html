@@ -1,4 +1,4 @@
-{% extends "auctions/layout.html" %}
+{% extends "auctions/base/base.html" %}
 {% load static %}
 
 {% block title %}
@@ -34,10 +34,12 @@
                     <p class="card-text">Adresse</p>
                     <p class="card-text">{{ auction.end }}</p>
                     <p class="card-text">Bids</p>
-                    {% if is_watchlist %}
-                        <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
-                    {% else %}
-                        <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                    {% if is_authenticated %}
+                        {% if is_watchlist %}
+                            <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
+                        {% else %}
+                            <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                        {% endif %}
                     {% endif %}
 
                     {% if is_owner %}
@@ -66,16 +68,18 @@
 
             <div class="card">
                 <h1 class="card-title">Bids</h1>
-                {% if auction.is_active %}
-                <form action="{% url 'place_bid' auction.id %}" method="post" class="form-group">
-                    {% csrf_token %}
-                    <input type="number" class="form-control" placeholder="Current Price: {{ auction.price }}" required name="price" min="{{ auction.price }}" step="1.00" pattern="^\d+(?:\.\d{1,2})?$">
-                    <input type="submit" class="form-control" value="Place Bid">
-                </form>
-                {% else %}
-                    <div class="alert alert-warning">
-                        This Auction is already closed.
-                    </div>
+                {% if is_authenticated %}
+                    {% if auction.is_active %}
+                    <form action="{% url 'place_bid' auction.id %}" method="post" class="form-group">
+                        {% csrf_token %}
+                        <input type="number" class="form-control" placeholder="Current Price: {{ auction.price }}" required name="price" min="{{ auction.price }}" step="1.00" pattern="^\d+(?:\.\d{1,2})?$">
+                        <input type="submit" class="form-control" value="Place Bid">
+                    </form>
+                    {% else %}
+                        <div class="alert alert-warning">
+                            This Auction is already closed.
+                        </div>
+                    {% endif %}
                 {% endif %}
                 <h3 class="card-title">Bid History</h3>
                 {% if bids %}
@@ -108,9 +112,11 @@
                 {% else %}
                     <p>No comments.</p>
                 {% endif %}
+                {% if is_authenticated %}
                 <form action="{% url 'add_comment' auction.id %}" method="get">
                     <input type="submit" value="Create Comment">
                 </form>
+                {% endif %}
             </div>
         </div>
         <div class="col-lg-2 col-sm-0"></div>

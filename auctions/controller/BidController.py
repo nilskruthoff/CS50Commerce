@@ -1,8 +1,10 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
 from auctions.models import BidModel, AuctionModel
 
 
+@login_required
 def place_bid(request, auction_id):
     if request.method == 'POST':
         bid = BidModel()

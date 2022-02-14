@@ -1,4 +1,4 @@
-{% extends "auctions/layout.html" %}
+{% extends "auctions/base/base.html" %}
 {% load static %}
 
 {% block title %}
@@ -13,10 +13,10 @@
 {% endblock %}
 
 {% block body %}
-    {% for link, category in categories.items %}
+    {% for id, label in categories.items %}
         <li>
-            <a href="{% url 'show_categories' link %}">
-                {{ category }}
+            <a href="{% url 'show_categories' id %}">
+                {{ label }}
             </a>
         </li>
     {% endfor %}

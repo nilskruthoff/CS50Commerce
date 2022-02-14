@@ -1,6 +1,7 @@
 from django.db import models
-from .UserModel import User
 from django.utils.translation import gettext_lazy as _
+
+from .UserModel import User
 
 
 class AuctionModel(models.Model):

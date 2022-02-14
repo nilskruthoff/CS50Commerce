@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from auctions.forms.CommentForm import CommentForm
 from auctions.models import CommentModel, AuctionModel
 
 
+@login_required
 def add_comment(request, auction_id):
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -20,7 +22,7 @@ def add_comment(request, auction_id):
             return redirect('index')
 
     else:
-        return render(request, 'auctions/comment.html', {
+        return render(request, 'auctions/forms/comment.html', {
             'auction': AuctionModel.objects.get(id=auction_id),
             'form': CommentForm()
         })

@@ -1,4 +1,5 @@
 from django.db import models
+
 from .AuctionModel import AuctionModel
 from .UserModel import User
 

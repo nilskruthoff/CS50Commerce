@@ -1,9 +1,9 @@
 from django.urls import path
 
 from . import views
-from .controller import WatchlistController, BidController,\
-                        CommentController, AuctionController,\
-                        CollectionController, UserController
+from .controller import WatchlistController, BidController, \
+    CommentController, AuctionController, \
+    CollectionController, UserController
 
 urlpatterns = [
     path("", views.index, name="index"),

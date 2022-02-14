@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -7,6 +8,7 @@ from auctions.models import AuctionModel
 from auctions.models.WatchlistModel import WatchlistModel
 
 
+@login_required
 def add(request):
     if request.method == 'POST':
         form = AuctionForm(request.POST)
@@ -28,7 +30,7 @@ def add(request):
         else:
             return HttpResponse("ERROR")
     else:
-        return render(request, 'auctions/add_auction.html', {
+        return render(request, 'auctions/forms/add_auction.html', {
             'page_title': 'New Auction',
             'header': 'New Auction',
             'subheader': 'Create a new auction listing',
@@ -58,12 +60,14 @@ def show(request, auction_id):
         "comments": auction.commentmodel_set.all(),
         "bids": auction.bidmodel_set.all(),
         "username": auction.user.username,
+        "is_authenticated": request.user.is_authenticated,
         "is_watchlist": is_watchlist,
         "is_owner": is_owner,
         "has_won": has_won
     })
 
 
+@login_required
 def close(request, auction_id):
     auction = AuctionModel.objects.get(id=auction_id)
     last_bid = list(auction.bidmodel_set.all())[-1]

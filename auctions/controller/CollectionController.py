@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
 from auctions.models import AuctionModel
@@ -14,11 +15,13 @@ def show_active(request):
     return render(request, 'auctions/index.html', {'auctions': auctions})
 
 
+@login_required
 def show_watchlist(request):
     auctions = AuctionsService.get_watchlist_auctions(request)
     return render(request, 'auctions/index.html', {'auctions': auctions})
 
 
+@login_required
 def show_user(request):
     auctions = AuctionsService.get_user_auctions(request)
     return render(request, 'auctions/index.html', {'auctions': auctions})

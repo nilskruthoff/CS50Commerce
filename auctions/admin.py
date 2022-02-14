@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from auctions.models.AuctionModel import AuctionModel
 from auctions.models.BidModel import BidModel
 from auctions.models.CommentModel import CommentModel

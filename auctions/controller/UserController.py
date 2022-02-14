@@ -17,11 +17,11 @@ def login_view(request):
             login(request, user)
             return redirect('index')
         else:
-            return render(request, "auctions/login.html", {
+            return render(request, "auctions/forms/login.html", {
                 "message": "Invalid username and/or password."
             })
     else:
-        return render(request, "auctions/login.html")
+        return render(request, "auctions/forms/login.html")
 
 
 def logout_view(request):
@@ -38,7 +38,7 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "auctions/register.html", {
+            return render(request, "auctions/forms/register.html", {
                 "message": "Passwords must match."
             })
 
@@ -47,10 +47,10 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError:
-            return render(request, "auctions/register.html", {
+            return render(request, "auctions/forms/register.html", {
                 "message": "Username already taken."
             })
         login(request, user)
         return redirect('index')
     else:
-        return render(request, "auctions/register.html")
+        return render(request, "auctions/forms/register.html")

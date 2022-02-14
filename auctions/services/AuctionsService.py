@@ -1,8 +1,9 @@
 from django.forms import model_to_dict
 
 from ..models import AuctionModel, User
+
+
 #TODO Comments
-from ..models.WatchlistModel import WatchlistModel
 
 
 def prepare_auctions(raw_auctions):

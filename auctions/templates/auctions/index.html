@@ -18,7 +18,7 @@
         {% if forloop.first %}<div class="row">{% endif %}
 
         <div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
-        <a href="{% url 'listing' auction.id %}">
+        <a href="{% url 'show_auction' auction.id %}">
             <!-- Picture -->
             <div class="card card-border">
                 <img src="{% static auction.url %}" class="card-img-top img-listing" alt="{{ auction.title }}">

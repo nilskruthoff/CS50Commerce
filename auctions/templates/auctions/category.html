@@ -15,7 +15,7 @@
 {% block body %}
     {% for link, category in categories.items %}
         <li>
-            <a href="{% url 'categories' link %}">
+            <a href="{% url 'show_categories' link %}">
                 {{ category }}
             </a>
         </li>

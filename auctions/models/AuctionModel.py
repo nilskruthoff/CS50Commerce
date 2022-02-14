@@ -29,7 +29,7 @@ class AuctionModel(models.Model):
     start = models.DateField(default=None)
     end = models.DateField(default=None)
     is_active = models.BooleanField(default=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None, related_name='user')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
     img = models.ImageField(upload_to='auctions/static/resources/%Y/%m/%d', blank=True, null=True)
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)

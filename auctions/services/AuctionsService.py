@@ -5,7 +5,7 @@ from ..models import AuctionModel, User
 from ..models.WatchlistModel import WatchlistModel
 
 
-def prepare_all_auctions(raw_auctions):
+def prepare_auctions(raw_auctions):
     auctions = []
     for auction in raw_auctions:
         auction = model_to_dict(auction)
@@ -16,18 +16,12 @@ def prepare_all_auctions(raw_auctions):
     return auctions
 
 
-def prepare_auctions(raw_auctions):
-    auctions = []
-    for auction in raw_auctions:
-        auction = model_to_dict(auction)
-        auction['url'] = auction['img'].url[16:]
-        auction['category'] = get_category(auction['category'])
-        auctions.append(auction)
-    return auctions
-
-
 def get_all_auctions():
-    return prepare_all_auctions(AuctionModel.objects.all())
+    return prepare_auctions(AuctionModel.objects.all())
+
+
+def get_active_auctions():
+    return prepare_auctions(AuctionModel.objects.filter(is_active=True))
 
 
 def get_watchlist_auctions(request):

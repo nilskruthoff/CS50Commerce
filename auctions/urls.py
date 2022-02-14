@@ -2,13 +2,14 @@ from django.urls import path
 
 from . import views
 from .controller import WatchlistController, BidController,\
-                        CommentController, AuctionController, CollectionController
+                        CommentController, AuctionController,\
+                        CollectionController, UserController
 
 urlpatterns = [
     path("", views.index, name="index"),
-    path("user/login", views.login_view, name="login"),
-    path("user/logout", views.logout_view, name="logout"),
-    path("user/register", views.register, name="register"),
+    path("user/login", UserController.login_view, name="login"),
+    path("user/logout", UserController.logout_view, name="logout"),
+    path("user/register", UserController.register, name="register"),
     path("auction/add", AuctionController.add, name="add_auction"),
     path("auction/<int:auction_id>/close", AuctionController.close, name="close_auction"),
     path("auction/show/all", CollectionController.show_all, name="show_all"),

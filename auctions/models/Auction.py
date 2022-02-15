@@ -32,6 +32,7 @@ class Auction(models.Model):
     start = models.DateField(default=None)
     end = models.DateField(default=None)
     is_active = models.BooleanField(default=True)
+    view_count = models.IntegerField(default=0, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
     img = ResizedImageField(size=[1080, 1080], crop=['middle', 'center'], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
@@ -47,11 +48,15 @@ class Auction(models.Model):
             return "resources/placeholder.jpg"
 
     def get_last_bid(self):
-        if self.bid_set:
+        if self.bid_set.exists():
             return list(self.bid_set.all())[-1]
 
     def has_bids(self) -> bool:
         return True if self.bid_set.exists() > 0 else False
+
+    def update_views(self):
+        self.view_count += 1
+        self.save()
 
 
 

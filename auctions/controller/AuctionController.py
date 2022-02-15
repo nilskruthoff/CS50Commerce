@@ -27,6 +27,7 @@ def add(request):
 
 def show(request, auction_id):
     auction = AuctionsService.get_auction(auction_id)
+    auction.update_views()
 
     return render(request, 'auctions/show.html', {
         "header": auction.title,

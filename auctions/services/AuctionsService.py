@@ -70,7 +70,7 @@ def get_watchlist_auctions(request) -> list:
 
 
 def get_user_auctions(request) -> list:
-    return prepare_auctions(User.objects.get(id=request.user.id).Auction_set.all())
+    return prepare_auctions(User.objects.get(id=request.user.id).auction_set.all())
 
 
 def get_category_auctions(category: str) -> list:

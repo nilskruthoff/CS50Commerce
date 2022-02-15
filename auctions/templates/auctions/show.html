@@ -23,27 +23,37 @@
         <div class="col-lg-2 col-sm-0"></div>
         <div class="col-lg-8 col-sm-12">
             <div class="card align-items-center">
-                <img src="{% static auction.url %}" class="card-img-top" style="width: 35%" alt="{{ auction.title }}">
+                <img src="{% static auction.url %}" class="card-img-top resize" alt="{{ auction.title }}">
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <h1 class="card-title">{{ auction.title }}</h1>
-                    <h1 class="card-subtitle">{{ auction.price }}</h1>
-                    <h1 class="card-subtitle">{{ auction.category }}</h1>
-                    <p class="card-text">Adresse</p>
-                    <p class="card-text">{{ auction.end }}</p>
-                    <p class="card-text">Bids</p>
+                    <h1 class="auction-title">{{ auction.title }}</h1>
+                    <h1 class="auction-price">{{ auction.price }}€</h1>
+                    <p class="category-tag">{{ auction.category }}</p>
+                    <table class="my-3">
+                        <tr>
+                            <td><i class="fa-solid fa-map-location-dot"></i></td>
+                            <td colspan="3"><p class="card-text">Adresse</p></td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa-solid fa-calendar"></i></td>
+                            <td><p class="card-text">{{ auction.end }}</p></td>
+                            <td><i class="fa-solid fa-eye"></i></td>
+                            <td><p class="card-text">{{ auction.view_count }}</p></td>
+                        </tr>
+                    </table>
                     {% if authenticated %}
                         {% if on_watchlist %}
-                            <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
+                            <a class="watchlist my-3" href="{% url 'remove_watchlist' auction.id %}">Remove from Watchlist</a>
                         {% else %}
-                            <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
+                            <a class="watchlist my-3" href="{% url 'add_watchlist' auction.id %}">Add to Watchlist</a>
                         {% endif %}
                     {% endif %}
 
                     {% if owner and has_bids %}
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#closeAuctionModal">
+                        <br>
+                        <button type="button" class="btn btn-danger my-3" data-bs-toggle="modal" data-bs-target="#closeAuctionModal">
                             Close Auction
                         </button>
                     {% endif %}
@@ -136,7 +146,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
-            <a href="{% url 'close_auction' auction.id %}" class="btn btn-primary">Close Auction</a>
+            <a href="{% url 'close_auction' auction.id %}" class="btn btn-danger">Close Auction</a>
           </div>
         </div>
       </div>

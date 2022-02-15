@@ -101,6 +101,11 @@ body {
   justify-content: center;
 }
 
+.flex-left {
+  display: flex;
+  justify-content: left;
+}
+
 .category-tag {
   display: inline-block;
   border-radius: 25px;
@@ -123,6 +128,23 @@ a.index-link:hover {
 .index-card {
   border: 1px #e1e1e1 solid;
   border-radius: 25px;
+}
+
+.auction-title {
+  font-weight: 400;
+}
+
+.auction-price {
+  font-weight: 425;
+  color: #198754;
+}
+
+.watchlist {
+  border: 1px gray solid;
+  border-radius: 25px;
+  padding: 5px 30px;
+  text-decoration: none;
+  margin-top: 20px;
 }
 
 .active-tag {
@@ -155,6 +177,11 @@ a.index-link:hover {
   box-shadow: 2px 2px 5px gray;
   padding: 5px 30px;
   margin: 10px 0;
+}
+
+img.resize {
+    width:90%; /* you can use % */
+    height: auto;
 }
 
 hr {

@@ -34,7 +34,7 @@ class Auction(models.Model):
     is_active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
-    img = ResizedImageField(size=[1920, 1080], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
+    img = ResizedImageField(size=[1080, 1080], crop=['middle', 'center'], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)
 
     def get_short_description(self, length: int = 100) -> str:

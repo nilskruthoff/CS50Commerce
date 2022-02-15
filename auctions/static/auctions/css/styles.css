@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 /*!
 * Start Bootstrap - Shop Homepage v5.0.4 (https://startbootstrap.com/template/shop-homepage)
 * Copyright 2013-2021 Start Bootstrap
@@ -58,10 +59,11 @@
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
+  --bs-body-font-weight: 300;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
+  --bs-body-text-align: left;
 }
 
 *,
@@ -76,13 +78,9 @@
   }
 }
 
-.card-border {
-  border-radius: 50px;
-}
-
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  font-family: 'Fira Sans', sans-serif;;
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -91,6 +89,72 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.price-index {
+  text-align: center;
+  font-size: 2.5rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+}
+
+.category-tag {
+  display: inline-block;
+  border-radius: 25px;
+  border-color: black;
+  box-shadow:1px 1px 10px lightgray;
+  padding: 5px 30px;
+
+}
+
+a.index-link {
+  color: black;
+  text-decoration: none;
+}
+
+a.index-link:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.index-card {
+  border: 1px #e1e1e1 solid;
+  border-radius: 25px;
+}
+
+.active-tag {
+  display: inline-block;
+  background-color: #198754;
+  border-color: #198754;
+  border-radius: 25px;
+  color: white;
+  box-shadow: 2px 2px 5px gray;
+  padding: 5px 30px;
+  margin: 10px 0;
+}
+
+.active-circle {
+  color: darkgreen;
+  font-size: 10px;
+}
+
+.inactive-circle {
+  color: darkred;
+  font-size: 10px;
+}
+
+.inactive-tag {
+  display: inline-block;
+  background-color: #DC3545;
+  border-color: #DC3545;
+  border-radius: 25px;
+  color: white;
+  box-shadow: 2px 2px 5px gray;
+  padding: 5px 30px;
+  margin: 10px 0;
 }
 
 hr {

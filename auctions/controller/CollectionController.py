@@ -6,7 +6,7 @@ from auctions.services import AuctionsService
 
 
 def show_all(request):
-    auctions = AuctionsService.get_all_auctions()
+    auctions = AuctionsService.get_all_auctions(length=250)
     return render(request, 'auctions/index.html', {'auctions': auctions})
 
 

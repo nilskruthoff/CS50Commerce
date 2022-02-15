@@ -15,27 +15,35 @@ def add_auction(request, auction: Auction, form):
         auction.user = request.user
         if len(request.FILES) != 0:
             auction.img = request.FILES['img']
+
+        if not validate_date(auction):
+            return False
+
         auction.save()
         return True
     except ValueError:
         return False
 
 
-def prepare_auction(auction: Auction, short_description: bool = True) -> Auction:
+def validate_date(auction: Auction):
+    return True if auction.end > auction.start else False
+
+
+def prepare_auction(auction: Auction, short_description: bool = True, length: int = 100) -> Auction:
     auction.url = auction.get_url()
     if short_description:
-        auction.description = auction.get_short_description()
+        auction.description = auction.get_short_description(length=length)
     auction.category = get_category(auction.category)
     return auction
 
 
-def prepare_auctions(raw_auctions) -> list:
+def prepare_auctions(raw_auctions, length = 100) -> list:
     auctions = []
     for auction in raw_auctions:
         auction = model_to_dict(auction)
         if auction['img']:
             auction['url'] = auction['img'].url[16:]
-        auction['description'] = auction['description'][:100] + "... (see more)"
+        auction['description'] = auction['description'][:length]
         auction['category'] = get_category(auction['category'])
         auctions.append(auction)
     return auctions
@@ -45,8 +53,8 @@ def get_auction(id: int) -> Auction:
     return Auction.objects.get(id=id)
 
 
-def get_all_auctions() -> list:
-    return prepare_auctions(Auction.objects.all())
+def get_all_auctions(length) -> list:
+    return prepare_auctions(Auction.objects.all(), length=length)
 
 
 def get_active_auctions() -> list:

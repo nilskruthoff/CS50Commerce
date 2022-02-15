@@ -18,29 +18,40 @@
         {% if forloop.first %}<div class="row">{% endif %}
 
         <div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
-        <a href="{% url 'show_auction' auction.id %}">
             <!-- Picture -->
-            <div class="card card-border">
+            <div class="index-card">
+                <a href="{% url 'show_auction' auction.id %}" class="index-link">
                 <img src="{% static auction.url %}" class="card-img-top img-show_auction" alt="{{ auction.title }}">
+                <div class="flex">
+                    {% if auction.is_active %}
+                        <div class="active-tag">
+                            <i class="fa-solid fa-circle active-circle"></i>
+                            active
+                        </div>
+                    {% else %}
+                        <div class="inactive-tag">
+                            <i class="fa-solid fa-circle inactive-circle"></i>
+                            inactive
+                        </div>
+                    {% endif %}
+                </div>
                 <!-- Card Body -->
                 <div class="card-body">
+
                     <h5 class="card-title">{{ auction.title}}</h5>
-                    <p class="card-text">{{ auction.description | safe }}</p>
-                    <p class="card-text">{{ auction.price }}</p>
+                    <p class="card-text">{{ auction.description | safe }}<a href="{% url 'show_auction' auction.id %}">...</a></p>
+                    <p class="price-index">{{ auction.price }}€</p>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">
+                <div class="flex">
+                    <div class="category-tag mb-2">
                         {{ auction.category }}
-                    </li>
-                </ul>
-                <div class="card-body">
-                    <a href="#" class="card-link">View Lisiting</a>
-                    <a href="#" class="card-link">Another link</a>
+                    </div>
                 </div>
+                </a>
             </div>
-            </a>
         </div>
         {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
         {% if forloop.last %}</div>{% endif %}
         {% endfor %}
+    <script src="https://kit.fontawesome.com/a0663bb1bc.js" crossorigin="anonymous"></script>
 {% endblock %}

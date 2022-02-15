@@ -30,7 +30,7 @@ def show(request, auction_id):
 
     return render(request, 'auctions/show.html', {
         "header": auction.title,
-        "auction": AuctionsService.prepare_auction(auction),
+        "auction": AuctionsService.prepare_auction(auction, short_description=False),
         "comments": CommentService.get_comments(auction),
         "bids": auction.bid_set.all(),
         "user": auction.user,

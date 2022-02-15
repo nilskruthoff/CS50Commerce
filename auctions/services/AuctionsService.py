@@ -3,6 +3,23 @@ from django.forms import model_to_dict
 from ..models import Auction, User
 
 
+def add_auction(request, auction: Auction, form):
+    try:
+        auction.title = form.cleaned_data['title']
+        auction.description = form.cleaned_data['description']
+        auction.price = form.cleaned_data['price']
+        auction.category = form.cleaned_data['category']
+        auction.start = form.cleaned_data['start']
+        auction.end = form.cleaned_data['end']
+        auction.user = request.user
+        if len(request.FILES) != 0:
+            auction.img = request.FILES['img']
+        auction.save()
+        return True
+    except:
+        return False
+
+
 def prepare_auction(auction: Auction, short_description: bool = True) -> Auction:
     auction.url = auction.get_url()
     if short_description:

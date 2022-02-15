@@ -10,9 +10,10 @@ from auctions.services import AuctionsService, UserService, WatchlistService, Co
 def add(request):
     if request.method == 'POST':
         form = AuctionForm(request.POST)
+        auction = Auction()
         if form.is_valid():
-            auction = Auction()
-            return redirect('show_auction', auction.id) if auction.add_auction(form=form, request=request) \
+            return redirect('show_auction', auction.id) \
+                if AuctionsService.add_auction(request, auction=auction, form=form) \
                 else redirect('add_auction')
         else:
             return redirect('add_auction')

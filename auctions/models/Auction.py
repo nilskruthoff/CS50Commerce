@@ -51,22 +51,6 @@ class Auction(models.Model):
     def has_bids(self) -> bool:
         return True if self.bid_set.exists() > 0 else False
 
-    def add_auction(self, form, request):
-        try:
-            self.title = form.cleaned_data['title']
-            self.description = form.cleaned_data['description']
-            self.price = form.cleaned_data['price']
-            self.category = form.cleaned_data['category']
-            self.start = form.cleaned_data['start']
-            self.end = form.cleaned_data['end']
-            self.user = request.user
-            if len(request.FILES) != 0:
-                self.img = request.FILES['img']
-            self.save()
-            return True
-        except:
-            return False
-
 
 
 

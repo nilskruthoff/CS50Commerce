@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from ckeditor.fields import RichTextField
+from django_resized import ResizedImageField
 
 from .User import User
 
@@ -32,7 +34,7 @@ class Auction(models.Model):
     is_active = models.BooleanField(default=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
-    img = models.ImageField(upload_to='auctions/static/resources/%Y/%m/%d', blank=True, null=True)
+    img = ResizedImageField(size=[1920, 1080], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)
 
     def get_short_description(self, length: int = 100) -> str:

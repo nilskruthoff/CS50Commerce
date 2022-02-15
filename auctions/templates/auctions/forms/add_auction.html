@@ -16,6 +16,7 @@
     <div class="form-group">
         <form action="{% url 'add_auction' %}" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
+            {{ form.media }}
             {{ form }}
             <input type="submit" value="Create" class="btn btn-primary">
         </form>

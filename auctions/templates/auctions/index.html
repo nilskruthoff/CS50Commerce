@@ -25,7 +25,7 @@
                 <!-- Card Body -->
                 <div class="card-body">
                     <h5 class="card-title">{{ auction.title}}</h5>
-                    <p class="card-text">{{ auction.description }}</p>
+                    <p class="card-text">{{ auction.description | safe }}</p>
                     <p class="card-text">{{ auction.price }}</p>
                 </div>
                 <ul class="list-group list-group-flush">

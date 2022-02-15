@@ -1,6 +1,7 @@
 from django.forms import model_to_dict
 
 from ..models import Auction, User
+from PIL import Image
 
 
 def add_auction(request, auction: Auction, form):
@@ -53,7 +54,7 @@ def get_active_auctions() -> list:
 
 
 def get_watchlist_auctions(request) -> list:
-    watchlists = User.objects.get(id=request.user.id).watchlist.all()
+    watchlists = User.objects.get(id=request.user.id).watchlist_set.all()
     auctions = []
     for watchlist in watchlists:
         auctions.append(Auction.objects.get(id=watchlist.auction_id))

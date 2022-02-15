@@ -34,14 +34,15 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'auctions',
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
-    'crispy_forms'
+    'crispy_forms',
+    'material',
+    'material.admin'
 ]
 
 MIDDLEWARE = [

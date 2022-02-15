@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib import admin
 
 from . import views
 from .controller import WatchlistController, BidController, \
@@ -21,5 +22,6 @@ urlpatterns = [
     path("auction/<int:auction_id>/comment", CommentController.add_comment, name="add_comment"),
     path("auction/<int:auction_id>/watchlist/add", WatchlistController.add_watchlist, name="add_watchlist"),
     path("auction/<int:auction_id>/watchlist/remove", WatchlistController.remove_watchlist, name="remove_watchlist"),
-    path("auction/<int:auction_id>/bid", BidController.place_bid, name="place_bid")
+    path("auction/<int:auction_id>/bid", BidController.place_bid, name="place_bid"),
+    path('admin/', admin.site.urls),
 ]

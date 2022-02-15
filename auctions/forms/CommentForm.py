@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import ModelForm
 
-from auctions.models import CommentModel
+from auctions.models import Comment
 
 
 class CommentForm(ModelForm):
     class Meta:
-        model = CommentModel
+        model = Comment
 
         fields = ['title', 'comment']
         labels = {

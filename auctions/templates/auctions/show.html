@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block body %}
-    {% if has_won %}
+    {% if winner %}
     <div class="alert alert-success">
         Congratulations, You have won this auction for {{ auction.price }}
     </div>
@@ -34,15 +34,15 @@
                     <p class="card-text">Adresse</p>
                     <p class="card-text">{{ auction.end }}</p>
                     <p class="card-text">Bids</p>
-                    {% if is_authenticated %}
-                        {% if is_watchlist %}
+                    {% if authenticated %}
+                        {% if on_watchlist %}
                             <a href="{% url 'remove_watchlist' auction.id %}">Remove to watchlist</a>
                         {% else %}
                             <a href="{% url 'add_watchlist' auction.id %}">Add to watchlist</a>
                         {% endif %}
                     {% endif %}
 
-                    {% if is_owner %}
+                    {% if owner and has_bids %}
                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#closeAuctionModal">
                             Close Auction
                         </button>
@@ -56,7 +56,7 @@
                     <tbody>
                         <tr>
                             <td>Author</td>
-                            <td>{{ username }}</td>
+                            <td>{{ user.username }}</td>
                         </tr>
                         <tr>
                             <td>Shipping</td>
@@ -68,7 +68,7 @@
 
             <div class="card">
                 <h1 class="card-title">Bids</h1>
-                {% if is_authenticated %}
+                {% if authenticated %}
                     {% if auction.is_active %}
                     <form action="{% url 'place_bid' auction.id %}" method="post" class="form-group">
                         {% csrf_token %}
@@ -112,7 +112,7 @@
                 {% else %}
                     <p>No comments.</p>
                 {% endif %}
-                {% if is_authenticated %}
+                {% if authenticated %}
                 <form action="{% url 'add_comment' auction.id %}" method="get">
                     <input type="submit" value="Create Comment">
                 </form>

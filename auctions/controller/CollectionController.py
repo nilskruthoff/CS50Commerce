@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from auctions.models import AuctionModel
+from auctions.models import Auction
 from auctions.services import AuctionsService
 
 
@@ -28,7 +28,7 @@ def show_user(request):
 
 
 def show_categories(request, category):
-    categories = dict(zip(AuctionModel.Category.values, AuctionModel.Category.labels))
+    categories = dict(zip(Auction.Category.values, Auction.Category.labels))
     if category == 'all':
         return render(request, 'auctions/category.html', {'categories': categories})
     else:

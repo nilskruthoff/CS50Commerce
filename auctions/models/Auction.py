@@ -1,10 +1,10 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .UserModel import User
+from .User import User
 
 
-class AuctionModel(models.Model):
+class Auction(models.Model):
     class Category(models.TextChoices):
         FASH = 1, _('Fashion and Accessoires')
         TECH = 2, _('Technology and Electronics')
@@ -34,5 +34,39 @@ class AuctionModel(models.Model):
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
     img = models.ImageField(upload_to='auctions/static/resources/%Y/%m/%d', blank=True, null=True)
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)
+
+    def get_short_description(self, length: int = 100) -> str:
+        return self.description[:length]
+
+    def get_url(self) -> str:
+        if self.img:
+            return self.img.url[16:]
+        else:
+            return "resources/placeholder.jpg"
+
+    def get_last_bid(self):
+        if self.bid_set:
+            return list(self.bid_set.all())[-1]
+
+    def has_bids(self) -> bool:
+        return True if self.bid_set.exists() > 0 else False
+
+    def add_auction(self, form, request):
+        try:
+            self.title = form.cleaned_data['title']
+            self.description = form.cleaned_data['description']
+            self.price = form.cleaned_data['price']
+            self.category = form.cleaned_data['category']
+            self.start = form.cleaned_data['start']
+            self.end = form.cleaned_data['end']
+            self.user = request.user
+            if len(request.FILES) != 0:
+                self.img = request.FILES['img']
+            self.save()
+            return True
+        except:
+            return False
+
+
 
 

@@ -1,18 +1,18 @@
 from django.contrib import admin
 
-from auctions.models.AuctionModel import AuctionModel
-from auctions.models.BidModel import BidModel
-from auctions.models.CommentModel import CommentModel
-from auctions.models.UserModel import User
-from auctions.models.WatchlistModel import WatchlistModel
+from auctions.models.Auction import Auction
+from auctions.models.Bid import Bid
+from auctions.models.Comment import Comment
+from auctions.models.User import User
+from auctions.models.Watchlist import Watchlist
 
 
 class AuthorAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(AuctionModel, AuthorAdmin)
-admin.site.register(BidModel, AuthorAdmin)
-admin.site.register(CommentModel, AuthorAdmin)
+admin.site.register(Auction, AuthorAdmin)
+admin.site.register(Bid, AuthorAdmin)
+admin.site.register(Comment, AuthorAdmin)
 admin.site.register(User, AuthorAdmin)
-admin.site.register(WatchlistModel, AuthorAdmin)
+admin.site.register(Watchlist, AuthorAdmin)

@@ -1,15 +1,15 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 
-from auctions.models import BidModel, AuctionModel
+from auctions.models import Bid, Auction
 
 
 @login_required
 def place_bid(request, auction_id):
     if request.method == 'POST':
-        bid = BidModel()
+        bid = Bid()
         # TODO Validate BIDS
-        auction = AuctionModel.objects.get(id=auction_id)
+        auction = Auction.objects.get(id=auction_id)
         bid.price = request.POST['price']
         bid.user = request.user
         bid.auction = auction
@@ -17,7 +17,7 @@ def place_bid(request, auction_id):
         # TODO Message success
         auction.price = bid.price
         auction.save()
-        return redirect('listing', auction_id=auction_id)
+        return redirect('show_auction', auction_id=auction_id)
     else:
         # TODO Message fail
-        return redirect('listing', auction_id=auction_id)
+        return redirect('show_active', auction_id=auction_id)

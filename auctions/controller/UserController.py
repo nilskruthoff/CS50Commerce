@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db import IntegrityError
 from django.shortcuts import render, redirect
 
+from auctions.forms.UserForm import UserForm
+
 
 def login_view(request):
     if request.method == "POST":
@@ -53,4 +55,6 @@ def register(request):
         login(request, user)
         return redirect('index')
     else:
-        return render(request, "auctions/forms/register.html")
+        return render(request, "auctions/forms/register.html",{
+            "form": UserForm()
+        })

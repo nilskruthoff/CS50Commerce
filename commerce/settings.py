@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor'
+    'ckeditor',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,5 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

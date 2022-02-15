@@ -1,4 +1,5 @@
 {% extends "auctions/base/base.html" %}
+{% load crispy_forms_filters %}
 
 {% block body %}
 
@@ -7,6 +8,8 @@
     {% if message %}
         <div>{{ message }}</div>
     {% endif %}
+
+    {% load crispy_forms_tags %}
 
     <form action="{% url 'register' %}" method="post">
         <div class="form-group">
@@ -29,6 +32,22 @@
             </div>
         </div>
         {% csrf_token %}
+        {{ form.prefix | as_crispy_field }}
+        {{ form.first_name | as_crispy_field }}
+        {{ form.last_name | as_crispy_field }}
+        {{ form.gender | as_crispy_field }}
+        {{ form.age | as_crispy_field }}
+        {{ form.birthday | as_crispy_field }}
+
+        {{ form.street | as_crispy_field }}
+        {{ form.house_number | as_crispy_field }}
+        {{ form.postcode | as_crispy_field }}
+        {{ form.city | as_crispy_field }}
+
+        {{ form.username | as_crispy_field }}
+        {{ form.email | as_crispy_field }}
+        {{ form.password | as_crispy_field }}
+        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
 
         <input class="btn btn-primary" type="submit" value="Register">
     </form>

@@ -15,7 +15,7 @@ def add_bid(request, bid: Bid, auction: Auction):
         bid.save()
         auction.save()
         return True
-    except:
+    except ValueError:
         return False
 
 

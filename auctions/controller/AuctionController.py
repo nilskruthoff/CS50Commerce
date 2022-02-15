@@ -35,7 +35,7 @@ def show(request, auction_id):
         "bids": auction.bid_set.all(),
         "user": auction.user,
         "authenticated": request.user.is_authenticated,
-        "on_watchlist": WatchlistService.on_watchlist(request, auction),
+        "on_watchlist": WatchlistService.on_watchlist(auction),
         "owner": UserService.is_owner(request, auction),
         "has_bids": auction.has_bids(),
         "winner": AuctionsService.has_won(request, auction)

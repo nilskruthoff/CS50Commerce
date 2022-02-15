@@ -16,7 +16,7 @@ def add_auction(request, auction: Auction, form):
             auction.img = request.FILES['img']
         auction.save()
         return True
-    except:
+    except ValueError:
         return False
 
 

@@ -4,7 +4,7 @@
 
 .price {
   font-weight: 425;
-  color: #198754;
+  color: #0D9EFE;
 }
 
 .subheader {
@@ -16,14 +16,30 @@
   padding: 1rem 1rem;
 }
 
-th, td {
-  padding: 0.3rem;
-  font-family: "Fira Sans";
-  font-weight: 350;
+tr, td {
+  padding: 0.5rem;
 }
 
+.bid-table td {
+  padding: 0.1rem;
+  font-weight: 200;
+}
 
 .cell {
   padding-right: 2.5rem;
+}
+
+.bid {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+  padding: 0.5rem 3rem;
+  margin: 0.5rem;
+  font-size: smaller;
+}
+
+.bid-price {
+  border-right: 1px gray solid;
+  font-size: 1.3rem;
+  color: #0D9EFE;
 }
 

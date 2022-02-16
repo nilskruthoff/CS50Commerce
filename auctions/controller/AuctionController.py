@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from auctions.forms.AuctionForm import AuctionForm
 from auctions.forms.CommentForm import CommentForm
 from auctions.models import Auction
-from auctions.services import AuctionsService, UserService, WatchlistService, CommentService
+from auctions.services import AuctionsService, UserService, WatchlistService, CommentService, BidService
 
 
 @login_required
@@ -28,6 +28,7 @@ def add(request):
 
 def show(request, auction_id):
     auction = AuctionsService.get_auction(auction_id)
+    bids = BidService.get_all_bids(auction)
     auction.update_views()
 
     return render(request, 'auctions/show.html', {
@@ -35,7 +36,7 @@ def show(request, auction_id):
         "auction": AuctionsService.prepare_auction(auction, short_description=False),
         "comments": CommentService.get_comments(auction),
         "comment_form": CommentForm(),
-        "bids": auction.bid_set.all(),
+        "bids": bids,
         "user": auction.user,
         "authenticated": request.user.is_authenticated,
         "on_watchlist": WatchlistService.on_watchlist(auction),

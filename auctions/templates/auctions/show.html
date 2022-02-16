@@ -35,7 +35,7 @@
                     <h1 class="title">{{ auction.title }}</h1>
                     <h1 class="price">{{ auction.price }}€</h1>
                     <p class="category-tag">{{ auction.category }}</p>
-                    <table class="my-3 ">
+                    <table class="my-3 tabel-overview">
                         <tr>
                             <td><i class="fa-solid fa-map-location-dot"></i></td>
                             <td colspan="3">
@@ -71,7 +71,7 @@
             <div class="section">
                 <h1 class="subheader">Details</h1>
                 <table class="card-body">
-                    <tbody class="my-3">
+                    <tbody class="my-3 table-details">
                         <tr>
                             <td><i class="fa-solid fa-user-pen"></i></td>
                             <td>{{ auction.user.first_name }} {{ auction.user.last_name }}</td>
@@ -88,7 +88,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="my-3">
+                <table class="my-3 table-details">
                     <tbody>
                         <tr>
                             <td><i class="fa-regular fa-calendar-plus"></i></td>
@@ -130,12 +130,28 @@
                         </div>
                     {% endif %}
                 {% endif %}
-                <h3 class="card-title">Bid History</h3>
                 {% if bids %}
                     {% for bid in bids reversed %}
-                        <h3>{{ bid.user.username }}</h3>
-                        <p>{{ bid.price }} €</p>
-                        <p>{{ bid.date }}</p>
+                        {% if forloop.first %}<div class="row">{% endif %}
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="bid shadow-sm">
+                                <table class="bid-table">
+                                    <tr>
+                                        <div class="mx-3">
+                                            <td class="bid-price" style="padding-right: 1rem" rowspan="2">{{ bid.price }}€</td>
+                                        </div>
+                                        <td style="padding-left: 1rem"><i class="fa-solid fa-user-pen"></i></td>
+                                        <td>{{ bid.user.first_name }} {{ bid.user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding-left: 1rem"><i class="fa-solid fa-calendar-days"></i></td>
+                                        <td>{{ bid.date }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+                        {% if forloop.last %}</div>{% endif %}
                     {% endfor %}
                 {% else %}
                     <p>No bids.</p>

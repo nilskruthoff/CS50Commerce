@@ -1,5 +1,6 @@
 from django.forms import model_to_dict
 
+from . import BidService
 from ..models import Auction, User
 from PIL import Image
 import datetime
@@ -29,7 +30,7 @@ def validate_date(auction: Auction):
     return True if auction.end > auction.start else False
 
 
-def prepare_auction(auction: Auction, short_description: bool = True, length: int = 100) -> Auction:
+def prepare_auction(auction: Auction, short_description: bool = True, length: int = 100):
     auction.url = auction.get_url()
     if short_description and len(auction.description) > length:
         auction.description = auction.get_short_description(length=length)
@@ -38,6 +39,7 @@ def prepare_auction(auction: Auction, short_description: bool = True, length: in
     auction.state = get_state(auction.state)
     auction.start = date_format(auction.start)
     auction.end = date_format(auction.end)
+
     return auction
 
 

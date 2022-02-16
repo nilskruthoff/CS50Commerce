@@ -5,6 +5,7 @@ from ..models import Auction, User
 from PIL import Image
 import datetime
 
+
 def add_auction(request, auction: Auction, form):
     try:
         auction.title = form.cleaned_data['title']
@@ -33,7 +34,7 @@ def validate_date(auction: Auction):
 def prepare_auction(auction: Auction, short_description: bool = True, length: int = 100):
     auction.url = auction.get_url()
     if short_description and len(auction.description) > length:
-        auction.description = auction.get_short_description(length=length)
+        auction.description = auction.get_short_description(length=length) + "..."
     auction.category = get_category(auction.category)
     auction.shipping = get_shipping_method(auction.shipping)
     auction.state = get_state(auction.state)
@@ -50,7 +51,7 @@ def prepare_auctions(raw_auctions, length = 100) -> list:
         if auction['img']:
             auction['url'] = auction['img'].url[16:]
         if len(auction['description']) > length:
-            auction['description'] = auction['description'][:length]
+            auction['description'] = auction['description'][:length] + "..."
         auction['category'] = get_category(auction['category'])
         auctions.append(auction)
     return auctions

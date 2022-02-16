@@ -14,10 +14,16 @@
 
 {% block body %}
     {% for id, label in categories.items %}
-        <li>
+        {% if forloop.first %}<div class="row">{% endif %}
+        <div class="col-lg-4 col-sm-12">
             <a href="{% url 'show_categories' id %}">
-                {{ label }}
+                <div class="category-card shadow-sm text-black">
+                    {{ label }}
+                </div>
             </a>
-        </li>
+
+        </div>
+        {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+        {% if forloop.last %}</div>{% endif %}
     {% endfor %}
 {% endblock %}

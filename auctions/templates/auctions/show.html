@@ -26,14 +26,14 @@
     <div class="row py-5">
         <div class="col-lg-2 col-sm-0"></div>
         <div class="col-lg-8 col-sm-12">
-            <div class="card align-items-center">
+            <div class="section align-items-center">
                 <img src="{% static auction.url %}" class="card-img-top resize" alt="{{ auction.title }}">
             </div>
 
-            <div class="card">
+            <div class="section">
                 <div class="card-body">
                     <h1 class="title">{{ auction.title }}</h1>
-                    <h1 class="price">{{ auction.price }}€</h1>
+                    <h1 class="price text-primary">{{ auction.price }}€</h1>
                     <p class="category-tag">{{ auction.category }}</p>
                     <table class="my-3 tabel-overview">
                         <tr>
@@ -68,6 +68,7 @@
                     {% endif %}
                 </div>
             </div>
+            <hr/>
             <div class="section">
                 <h1 class="subheader">Details</h1>
                 <table class="card-body">
@@ -149,7 +150,7 @@
                                 <table class="bid-table">
                                     <tr>
                                         <div class="mx-3">
-                                            <td class="bid-price" style="padding-right: 1rem" rowspan="2">{{ bid.price }}€</td>
+                                            <td class="bid-price text-primary" style="padding-right: 1rem" rowspan="2">{{ bid.price }}€</td>
                                         </div>
                                         <td style="padding-left: 1rem"><i class="fa-solid fa-user-pen"></i></td>
                                         <td>{{ bid.user.first_name }} {{ bid.user.last_name }}</td>
@@ -193,10 +194,11 @@
                     </details>
                 {% endif %}
                 {% for comment in comments reversed %}
-                    <div class="comment">
-                        <p>{{ comment.title }}</p>
+                    <div class="comment my-3">
+                        <p class="comment-header">{{ comment.title }}</p>
+                        <hr/>
                         <p>{{ comment.comment | safe }}</p>
-                        <table>
+                        <table class="icon-bar text-primary">
                             <tr>
                                 <td><i class="fa-solid fa-user-pen"></i></td>
                                 <td class="cell">{{ comment.user.first_name }} {{ comment.user.last_name }}</td>

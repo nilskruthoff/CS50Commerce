@@ -18,6 +18,7 @@ urlpatterns = [
     path("auction/show/watchlist", CollectionController.show_watchlist, name="show_watchlist"),
     path("auction/show/user", CollectionController.show_user, name="show_user"),
     path("category/<str:category>", CollectionController.show_categories, name="show_categories"),
+    path("category/all/show", CollectionController.show_all_categories, name="show_all_categories"),
     path("auction/<int:auction_id>/show", AuctionController.show, name="show_auction"),
     path("auction/<int:auction_id>/comment", CommentController.add_comment, name="add_comment"),
     path("auction/<int:auction_id>/watchlist/add", WatchlistController.add_watchlist, name="add_watchlist"),

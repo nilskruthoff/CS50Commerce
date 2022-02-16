@@ -40,7 +40,6 @@ tr, td {
 .bid-price {
   border-right: 1px gray solid;
   font-size: 1.3rem;
-  color: #0D9EFE;
 }
 
 .place-bid {
@@ -80,3 +79,11 @@ tr, td {
   padding: 0.5rem 3rem;
 }
 
+.comment-header {
+  font-size: 1.5rem;
+  font-weight: 550;
+}
+
+.icon-bar {
+  font-size: 0.8rem;
+}

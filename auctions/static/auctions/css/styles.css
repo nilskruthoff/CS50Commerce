@@ -168,6 +168,18 @@ a.index-link:hover {
   margin: 10px 0;
 }
 
+.category-card {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+  padding: 0.5rem 3rem;
+  margin: 10px 0;
+  text-decoration: none;
+}
+
+.category-card:hover {
+  background-color: lightgray;
+}
+
 img.resize {
     width:90%; /* you can use % */
     height: auto;

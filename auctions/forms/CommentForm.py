@@ -10,11 +10,10 @@ class CommentForm(ModelForm):
 
         fields = ['title', 'comment']
         labels = {
-            'title': 'Comment Title',
-            'comment': 'Comment'
+            'title': '',
+            'comment': ''
         }
-
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control my-2'}),
-            'comment': forms.Textarea(attrs={'class': 'form-control my-2'})
+            'title': forms.TextInput(attrs={'class': 'form-control my-2', 'placeholder': 'Comment Title'}),
+            'comment': forms.Textarea(attrs={'class': 'form-control my-2', 'placeholder': 'Comment'})
         }

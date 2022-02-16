@@ -29,12 +29,13 @@ def add(request):
 def show(request, auction_id):
     auction = AuctionsService.get_auction(auction_id)
     bids = BidService.get_all_bids(auction)
+    comments = CommentService.get_all_comments(auction)
     auction.update_views()
 
     return render(request, 'auctions/show.html', {
         "header": auction.title,
         "auction": AuctionsService.prepare_auction(auction, short_description=False),
-        "comments": CommentService.get_comments(auction),
+        "comments": comments,
         "comment_form": CommentForm(),
         "bids": bids,
         "user": auction.user,

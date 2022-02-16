@@ -43,3 +43,40 @@ tr, td {
   color: #0D9EFE;
 }
 
+.place-bid {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+  padding: 5px 30px;
+  text-decoration: none;
+  background-color: white;
+}
+
+.input-bid {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+}
+
+.create_comment {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+  padding: 5px 30px;
+  background-color: transparent;
+}
+
+.category {
+  display: inline-block;
+  border-radius: 25px;
+  border-color: black;
+  padding: 5px 30px;
+}
+
+.comment-form {
+  border-radius: 2rem;
+}
+
+.comment {
+  border: 1px lightgray solid;
+  border-radius: 2rem;
+  padding: 0.5rem 3rem;
+}
+

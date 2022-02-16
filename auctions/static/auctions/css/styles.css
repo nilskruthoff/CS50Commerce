@@ -132,11 +132,10 @@ a.index-link:hover {
 
 
 .watchlist {
-  border: 1px gray solid;
+  border: 1px lightgray solid;
   border-radius: 25px;
   padding: 5px 30px;
   text-decoration: none;
-  margin-top: 20px;
 }
 
 .active-tag {

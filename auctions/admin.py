@@ -32,4 +32,5 @@ class CommentAdmin(ModelAdmin):
 @register(Watchlist)
 class WatchlistAdmin(ModelAdmin):
     list_display = ('id', 'auction', 'user')
+    icon_name = 'remove_red_eye'
 

@@ -24,6 +24,10 @@ class Auction(models.Model):
         SHIP = 1, _("Shipping possible")
         PICK = 2, _("Only Pickup")
 
+    class State(models.TextChoices):
+        USED = 1, _("Second Hand")
+        NEW = 2, _("New")
+
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, default=None)
     description = models.TextField(default=None)
@@ -37,6 +41,8 @@ class Auction(models.Model):
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
     img = ResizedImageField(size=[1080, 1080], crop=['middle', 'center'], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)
+    state = models.CharField(max_length=2, choices=State.choices, default=State.USED,
+                             blank=True, null=True )
 
     def get_short_description(self, length: int = 100) -> str:
         return self.description[:length]

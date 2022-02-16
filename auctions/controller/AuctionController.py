@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from auctions.forms.AuctionForm import AuctionForm
+from auctions.forms.CommentForm import CommentForm
 from auctions.models import Auction
 from auctions.services import AuctionsService, UserService, WatchlistService, CommentService
 
@@ -33,6 +34,7 @@ def show(request, auction_id):
         "header": auction.title,
         "auction": AuctionsService.prepare_auction(auction, short_description=False),
         "comments": CommentService.get_comments(auction),
+        "comment_form": CommentForm(),
         "bids": auction.bid_set.all(),
         "user": auction.user,
         "authenticated": request.user.is_authenticated,

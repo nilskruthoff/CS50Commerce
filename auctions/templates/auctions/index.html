@@ -19,17 +19,17 @@
 
         <div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
             <!-- Picture -->
-            <div class="index-card">
+            <div class="index-card shadow">
                 <a href="{% url 'show_auction' auction.id %}" class="index-link">
                 <img src="{% static auction.url %}" class="card-img-top img-show_auction" alt="{{ auction.title }}">
                 <div class="flex">
                     {% if auction.is_active %}
-                        <div class="active-tag">
+                        <div class="active-tag shadow-sm">
                             <i class="fa-solid fa-circle active-circle"></i>
                             active
                         </div>
                     {% else %}
-                        <div class="inactive-tag">
+                        <div class="inactive-tag shadow-sm">
                             <i class="fa-solid fa-circle inactive-circle"></i>
                             inactive
                         </div>

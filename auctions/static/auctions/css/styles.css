@@ -59,7 +59,7 @@
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
   --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 300;
+  --bs-body-font-weight: 350;
   --bs-body-line-height: 1.5;
   --bs-body-color: #212529;
   --bs-body-bg: #fff;
@@ -80,7 +80,7 @@
 
 body {
   margin: 0;
-  font-family: 'Fira Sans', sans-serif;;
+  font-family: 'Noto Sans', sans-serif;;
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -130,14 +130,6 @@ a.index-link:hover {
   border-radius: 25px;
 }
 
-.auction-title {
-  font-weight: 400;
-}
-
-.auction-price {
-  font-weight: 425;
-  color: #198754;
-}
 
 .watchlist {
   border: 1px gray solid;
@@ -153,7 +145,6 @@ a.index-link:hover {
   border-color: #198754;
   border-radius: 25px;
   color: white;
-  box-shadow: 2px 2px 5px gray;
   padding: 5px 30px;
   margin: 10px 0;
 }
@@ -174,7 +165,6 @@ a.index-link:hover {
   border-color: #DC3545;
   border-radius: 25px;
   color: white;
-  box-shadow: 2px 2px 5px gray;
   padding: 5px 30px;
   margin: 10px 0;
 }

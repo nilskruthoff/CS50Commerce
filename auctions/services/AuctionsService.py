@@ -2,7 +2,7 @@ from django.forms import model_to_dict
 
 from ..models import Auction, User
 from PIL import Image
-
+import datetime
 
 def add_auction(request, auction: Auction, form):
     try:
@@ -31,9 +31,13 @@ def validate_date(auction: Auction):
 
 def prepare_auction(auction: Auction, short_description: bool = True, length: int = 100) -> Auction:
     auction.url = auction.get_url()
-    if short_description:
+    if short_description and len(auction.description) > length:
         auction.description = auction.get_short_description(length=length)
     auction.category = get_category(auction.category)
+    auction.shipping = get_shipping_method(auction.shipping)
+    auction.state = get_state(auction.state)
+    auction.start = date_format(auction.start)
+    auction.end = date_format(auction.end)
     return auction
 
 
@@ -43,7 +47,8 @@ def prepare_auctions(raw_auctions, length = 100) -> list:
         auction = model_to_dict(auction)
         if auction['img']:
             auction['url'] = auction['img'].url[16:]
-        auction['description'] = auction['description'][:length]
+        if len(auction['description']) > length:
+            auction['description'] = auction['description'][:length]
         auction['category'] = get_category(auction['category'])
         auctions.append(auction)
     return auctions
@@ -81,9 +86,19 @@ def has_won(request, auction: Auction) -> bool:
     return auction.winner == request.user
 
 
-def get_category(category) -> dict:
+def get_category(category):
     return dict(zip(Auction.Category.values, Auction.Category.labels))[category]
 
 
-def get_shipping_method(shipping) -> dict:
+def get_shipping_method(shipping):
     return dict(zip(Auction.Shipping.values, Auction.Shipping.labels))[shipping]
+
+
+def get_state(state):
+    return dict(zip(Auction.State.values, Auction.State.labels))[state]
+
+
+def date_format(date: datetime):
+    return date.strftime('%d.%m.%Y')
+
+

@@ -10,12 +10,12 @@ from .User import User
 
 
 def start_default():
-    return datetime.now().strftime("%d.%m.%Y")
+    return datetime.now().strftime("%Y-%m-%d")
 
 
 def end_default():
     date = datetime.now() + timedelta(days=14)
-    return date.strftime("%d.%m.%Y")
+    return date.strftime("%Y-%m-%d")
 
 
 class Auction(models.Model):
@@ -29,8 +29,9 @@ class Auction(models.Model):
         GARDEN = 7, _('Garden and Terrace')
         PETS = 8, _('Pets')
         MUSIC = 9, _('Music and Instruments')
-        GAME = 10, _('Computer- and Videogames')
-        MISC = 11, _('Miscellaneous')
+        GAME = 10, _('Computer- and Videogames'),
+        SPORT = 11, _('Sports')
+        MISC = 12, _('Miscellaneous')
 
     class Shipping(models.TextChoices):
         SHIP = 1, _("Shipping possible")

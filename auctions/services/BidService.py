@@ -25,14 +25,14 @@ def get_all_bids(auction: Auction):
 
 def bid_is_valid(bid: Bid, auction: Auction):
     if validate_format(bid) and validate_own_auction(bid, auction) and\
-            validate_last_bid(bid) and validate_price(bid, auction):
+            validate_last_bid(bid, auction) and validate_price(bid, auction):
         return True, "Your Bid was successfully placed!"
     else:
         if not validate_format(bid):
             return False, "The Bid must be a Decimal (e. g 30.00) or an Integer (e. g 30)!"
         if not validate_own_auction(bid, auction):
             return False, "You cannot bid on your own Auction!"
-        if not validate_last_bid(bid):
+        if not validate_last_bid(bid, auction):
             return False, "The last Bid is already your Bid!"
         if not validate_price(bid, auction):
             return False, "The Bid price must be higher than the current Auction price!"
@@ -61,12 +61,15 @@ def validate_own_auction(bid: Bid, auction: Auction):
         return False
 
 
-def validate_last_bid(bid: Bid):
-    last_bid = bid.auction.get_last_bid()
-    if last_bid.user != bid.user:
-        return True
+def validate_last_bid(bid: Bid, auction: Auction):
+    if len(auction.bid_set.all()) > 0:
+        last_bid = bid.auction.get_last_bid()
+        if last_bid.user != bid.user:
+            return True
+        else:
+            return False
     else:
-        return False
+        return True
 
 
 

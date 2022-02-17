@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 from django_resized import ResizedImageField
+from tinymce.models import HTMLField
 
 from .User import User
 
@@ -30,7 +31,7 @@ class Auction(models.Model):
 
     id = models.AutoField(primary_key=True)
     title = models.CharField(max_length=255, default=None)
-    description = models.TextField(default=None)
+    description = models.TextField(blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10, default=None)
     category = models.CharField(max_length=255, choices=Category.choices, default=Category.MISC)
     start = models.DateField(default=None)

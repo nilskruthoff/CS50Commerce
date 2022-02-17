@@ -1,20 +1,19 @@
 from datetime import datetime
 
+from django.http import HttpResponse
+
 from auctions.models import Auction, Bid
 from auctions.services import AuctionsService
 
 
 def add_bid(request, bid: Bid, auction: Auction):
-    try:
-        bid.price = request.POST['price']
+        bid.price = float(request.POST['price'])
         bid.user = request.user
         bid.auction = auction
         auction.price = bid.price
         bid.save()
         auction.save()
         return True
-    except ValueError:
-        return False
 
 
 def get_all_bids(auction: Auction):
@@ -24,13 +23,51 @@ def get_all_bids(auction: Auction):
     return bids
 
 
+def bid_is_valid(bid: Bid, auction: Auction):
+    if validate_format(bid) and validate_own_auction(bid, auction) and\
+            validate_last_bid(bid) and validate_price(bid, auction):
+        return True, "Your Bid was successfully placed!"
+    else:
+        if not validate_format(bid):
+            return False, "The Bid must be a Decimal (e. g 30.00) or an Integer (e. g 30)!"
+        if not validate_own_auction(bid, auction):
+            return False, "You cannot bid on your own Auction!"
+        if not validate_last_bid(bid):
+            return False, "The last Bid is already your Bid!"
+        if not validate_price(bid, auction):
+            return False, "The Bid price must be higher than the current Auction price!"
+        else:
+            return False, "Something went wrong, please place your Bid again!"
+
+
+def validate_format(bid: Bid):
+    if type(bid.price) == float or type(bid.price) == int:
+        return True
+    else:
+        return False
+
+
 def validate_price(bid, auction):
-    return True if float(bid.price) >= float(auction.price) + 1.0 else False
+    if float(bid.price) > float(auction.price):
+        return True
+    else:
+        return False
 
 
-def validate_user(bid: Bid):
+def validate_own_auction(bid: Bid, auction: Auction):
+    if bid.user != auction.user:
+        return True
+    else:
+        return False
+
+
+def validate_last_bid(bid: Bid):
     last_bid = bid.auction.get_last_bid()
-    return True if last_bid.user != bid.user else False
+    if last_bid.user != bid.user:
+        return True
+    else:
+        return False
+
 
 
 def get_date_time(date: datetime):

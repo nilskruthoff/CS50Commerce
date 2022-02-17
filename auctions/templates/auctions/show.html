@@ -23,6 +23,16 @@
     </div>
     {% endif %}
 
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div {% if message.tags %} class="alert {{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="row py-5">
         <div class="col-lg-2 col-sm-0"></div>
         <div class="col-lg-8 col-sm-12">
@@ -124,7 +134,13 @@
                     {% csrf_token %}
                         <div class="row my-5">
                                 <div class="col text-center">
-                                    <input required type="number" class="form-control input-bid shadow-sm" placeholder="{{ auction.price }}€" name="price" min="{{ auction.price }}">
+                                    <input required type="number"
+                                           class="form-control input-bid shadow-sm"
+                                           placeholder="{{ auction.price }}€"
+                                           name="price"
+                                           min="{{ auction.price }}"
+                                           step="any"
+                                    >
                                 </div>
                                 <div class="col text-center">
                                     <input type="submit" class="place-bid link-primary shadow-sm" value="Place Bid">
@@ -153,7 +169,7 @@
                                             <td class="bid-price text-primary" style="padding-right: 1rem" rowspan="2">{{ bid.price }}€</td>
                                         </div>
                                         <td style="padding-left: 1rem"><i class="fa-solid fa-user-pen"></i></td>
-                                        <td>{{ bid.user.first_name }} {{ bid.user.last_name }}</td>
+                                        <td>{{ bid.user.username }}</td>
                                     </tr>
                                     <tr>
                                         <td style="padding-left: 1rem"><i class="fa-solid fa-calendar-days"></i></td>

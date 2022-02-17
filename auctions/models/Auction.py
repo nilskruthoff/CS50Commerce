@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
@@ -5,6 +7,15 @@ from django_resized import ResizedImageField
 from tinymce.models import HTMLField
 
 from .User import User
+
+
+def start_default():
+    return datetime.now().strftime("%d.%m.%Y")
+
+
+def end_default():
+    date = datetime.now() + timedelta(days=14)
+    return date.strftime("%d.%m.%Y")
 
 
 class Auction(models.Model):
@@ -24,23 +35,25 @@ class Auction(models.Model):
     class Shipping(models.TextChoices):
         SHIP = 1, _("Shipping possible")
         PICK = 2, _("Only Pickup")
+        EXP = 3, _("Express Shipping")
 
     class State(models.TextChoices):
         USED = 1, _("Second Hand")
         NEW = 2, _("New")
 
     id = models.AutoField(primary_key=True)
-    title = models.CharField(max_length=255, default=None)
-    description = models.TextField(blank=True, null=True)
-    price = models.DecimalField(decimal_places=2, max_digits=10, default=None)
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    price = models.DecimalField(decimal_places=2, max_digits=10, default=20.00)
     category = models.CharField(max_length=255, choices=Category.choices, default=Category.MISC)
-    start = models.DateField(default=None)
-    end = models.DateField(default=None)
+    start = models.DateField(default=start_default())
+    end = models.DateField(default=end_default())
     is_active = models.BooleanField(default=True)
-    view_count = models.IntegerField(default=0, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
+    view_count = models.IntegerField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     winner = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None, related_name='winner')
-    img = ResizedImageField(size=[1080, 1080], crop=['middle', 'center'], upload_to='auctions/static/resources/%Y/%m/%d', quality=100, blank=True, null=True)
+    img = ResizedImageField(size=[1080, 1080], crop=['middle', 'center'], upload_to='auctions/static/resources/%Y/%m/%d',
+                            quality=100, blank=True, null=True, default='auctions/static/resources/placeholder.png')
     shipping = models.CharField(max_length=2, choices=Shipping.choices, default=Shipping.SHIP)
     state = models.CharField(max_length=2, choices=State.choices, default=State.USED,
                              blank=True, null=True )

@@ -103,5 +103,3 @@ def get_state(state):
 
 def date_format(date: datetime):
     return date.strftime('%d.%m.%Y')
-
-

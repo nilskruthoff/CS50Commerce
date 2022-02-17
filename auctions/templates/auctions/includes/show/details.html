@@ -4,7 +4,7 @@
         <tbody class="my-3 table-details">
             <tr>
                 <td><i class="fa-solid fa-user-pen"></i></td>
-                <td>{{ auction.user.first_name }} {{ auction.user.last_name }}</td>
+                <td>{{ auction.user.username }} {% if owner %}<b>(You)</b>{% endif %}</td>
 
                 <td><i class="fa-solid fa-repeat"></i></td>
                 <td>{{ auction.state }}</td>

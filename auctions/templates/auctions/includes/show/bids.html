@@ -1,0 +1,58 @@
+<div class="section">
+    <h1 class="card-title">Bids</h1>
+    {% if authenticated %}
+    {% if auction.is_active %}
+    <form action="{% url 'place_bid' auction.id %}" method="post">
+    {% csrf_token %}
+        <div class="row my-5">
+            <div class="col text-center">
+                <input required type="number"
+                       class="form-control input-bid shadow-sm"
+                       placeholder="{{ auction.price }}€"
+                       name="price"
+                       min="{{ auction.price }}"
+                       step="any"
+                >
+            </div>
+            <div class="col text-center">
+                <input type="submit" class="place-bid link-primary shadow-sm" value="Place Bid">
+            </div>
+            <div class="col text-center text-muted">
+                <small>Bid must be higher than {{ auction.price }}€</small>
+            </div>
+            </div>
+    </form>
+    {% else %}
+    <div class="alert alert-warning">
+        This Auction is already closed.
+    </div>
+    {% endif %}
+    {% endif %}
+
+    <div class="my-3">
+        {% if bids %}
+        {% for bid in bids reversed %}
+            {% if forloop.first %}<div class="row">{% endif %}
+                <div class="col-lg-6 col-sm-12">
+                    <div class="bid shadow-sm">
+                        <table class="bid-table">
+                            <tr>
+                                <div class="mx-3">
+                                    <td class="bid-price text-primary" style="padding-right: 1rem" rowspan="2">{{ bid.price }}€</td>
+                                </div>
+                                <td style="padding-left: 1rem"><i class="fa-solid fa-user-pen"></i></td>
+                                <td>{{ bid.user.username }}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding-left: 1rem"><i class="fa-solid fa-calendar-days"></i></td>
+                                <td>{{ bid.date }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                {% if forloop.counter|divisibleby:2 %}</div><div class="row">{% endif %}
+                {% if forloop.last %}</div>{% endif %}
+        {% endfor %}
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<!-- Close Auction Modal -->
+<div class="modal fade" id="closeAuctionModal" tabindex="-1" aria-labelledby="closeAuctionLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="closeAuctionLabel">Close your Auction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>If you close your auction, the last bidder will win this auction.</p>
+                <p>Are you sure, that you want to close your auction?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
+                <a href="{% url 'close_auction' auction.id %}" class="btn btn-danger">Close Auction</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Place Bid Modal -->
+<div class="modal fade" id="placeBidModal" tabindex="-1" aria-labelledby="placeBidLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="placeBidModal">Place a Bid</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Place"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure, that you want to Place a Bid on the Auction {{ auction.title }}
+                    with a price of at least {{ auction.price }}€?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Exit</button>
+                <a href="{% url 'close_auction' auction.id %}" class="btn btn-primary">Place Bid</a>
+            </div>
+        </div>
+    </div>
+</div>

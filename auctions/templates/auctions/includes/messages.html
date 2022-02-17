@@ -1,0 +1,17 @@
+<!-- System messages -->
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <div {% if message.tags %} class="alert {{ message.tags }}"{% endif %}>
+        {{ message }}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Auction winning message -->
+{% if winner %}
+<div class="alert alert-success">
+    Congratulations, You have won this auction for {{ auction.price }}
+</div>
+{% endif %}

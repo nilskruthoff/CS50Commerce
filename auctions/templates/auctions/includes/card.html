@@ -1,0 +1,41 @@
+{% load static %}
+
+{% for auction in auctions %}
+{% if forloop.first %}<div class="row">{% endif %}
+<div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
+    <div class="index-card shadow">
+        <a href="{% url 'show_auction' auction.id %}" class="index-link">
+            <!-- Auction Image -->
+            <img src="{% static auction.url %}" class="card-img-top img-show_auction" alt="{{ auction.title }}">
+            <!-- Active/Inactive Tag -->
+            <div class="flex">
+                {% if auction.is_active %}
+                <div class="active-tag shadow-sm">
+                    <i class="fa-solid fa-circle active-circle"></i>
+                    active
+                </div>
+                {% else %}
+                <div class="inactive-tag shadow-sm">
+                    <i class="fa-solid fa-circle inactive-circle"></i>
+                    inactive
+                </div>
+                {% endif %}
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <h5 class="card-title">{{ auction.title}}</h5>
+                <p class="card-text">{{ auction.description | safe }}</p>
+                <p class="price-index text-primary">{{ auction.price }}€</p>
+            </div>
+            <!-- Category Tag -->
+            <div class="flex">
+                <div class="category-tag mb-2">
+                    {{ auction.category }}
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+{% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+{% if forloop.last %}</div>{% endif %}
+{% endfor %}

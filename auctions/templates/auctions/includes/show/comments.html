@@ -1,0 +1,29 @@
+<div class="section">
+    <h1 class="subheader">Comments</h1>
+    {% load crispy_forms_tags %}
+    {% if auction.is_active %}
+    <details class="my-5">
+        <summary class="link-primary">Write a Comment</summary>
+        <form action="{% url 'add_comment' auction.id %}" method="post" class="form-group">
+            {% csrf_token %}
+            {{ comment_form }}
+            <input type="submit" class="create_comment link-primary shadow-sm" value="Create Comment">
+        </form>
+    </details>
+    {% endif %}
+    {% for comment in comments reversed %}
+    <div class="comment my-3">
+        <p class="comment-header">{{ comment.title }}</p>
+        <hr/>
+        <p>{{ comment.comment | safe }}</p>
+        <table class="icon-bar text-primary">
+            <tr>
+                <td><i class="fa-solid fa-user-pen"></i></td>
+                <td class="cell">{{ comment.user.first_name }} {{ comment.user.last_name }}</td>
+                <td><i class="fa-solid fa-calendar-days"></i></td>
+                <td>{{ comment.date }}</td>
+            </tr>
+        </table>
+    </div>
+    {% endfor %}
+</div>

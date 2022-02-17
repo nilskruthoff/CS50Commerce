@@ -1,0 +1,45 @@
+<div class="section">
+    <h1 class="subheader">Details</h1>
+    <table class="card-body">
+        <tbody class="my-3 table-details">
+            <tr>
+                <td><i class="fa-solid fa-user-pen"></i></td>
+                <td>{{ auction.user.first_name }} {{ auction.user.last_name }}</td>
+
+                <td><i class="fa-solid fa-repeat"></i></td>
+                <td>{{ auction.state }}</td>
+            </tr>
+            <tr>
+                <td><i class="fa-solid fa-boxes-stacked"></i></td>
+                <td class="cell">{{ auction.category }}</td>
+
+                <td><i class="fa-solid fa-people-carry-box"></i></td>
+                <td>{{ auction.shipping }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="my-3 table-details">
+        <tbody>
+            <tr>
+                <td><i class="fa-regular fa-calendar-plus"></i></td>
+                <td colspan="2" class="cell-text">{{ auction.start }}&nbsp;&nbsp;&nbsp;-</td>
+                <td><i class="fa-regular fa-calendar-xmark"></i></td>
+                <td colspan="2">{{ auction.end }}</td>
+            </tr>
+        </tbody>
+    </table>
+    {% if auction.is_active %}
+    <div class="active-tag shadow-sm">
+        <i class="fa-solid fa-circle active-circle"></i>
+        active
+    </div>
+    {% else %}
+    <div class="inactive-tag shadow-sm">
+        <i class="fa-solid fa-circle inactive-circle"></i>
+        inactive
+    </div>
+    {% endif %}
+    <div>
+        <p class="d-flex align-items-center justify-content-end">Anzeigennr. {{ auction.id }}</p>
+    </div>
+</div>

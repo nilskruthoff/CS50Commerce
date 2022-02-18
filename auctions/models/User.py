@@ -14,7 +14,6 @@ class User(AbstractUser):
         MA = 7, _('B. Sc')
         MSC = 8, _('M. Sc')
 
-
     class Gender(models.TextChoices):
         MALE = 1, _('Male')
         FEMALE = 2, _('Female')
@@ -29,4 +28,4 @@ class User(AbstractUser):
     street = models.CharField(max_length=255, default=None, blank=True, null=True)
     house_number = models.CharField(max_length=10, default=None, blank=True, null=True)
     telephone = models.CharField(max_length=20, default=None, blank=True, null=True)
-    gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.NONE, null=True, blank=True)
+    gender = models.CharField(max_length=2, choices=Gender.choices, default=Gender.MALE)

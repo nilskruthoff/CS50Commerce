@@ -1,57 +1,108 @@
 {% extends "auctions/base/base.html" %}
-{% load crispy_forms_filters %}
 
+{% block header %}
+    Register
+{% endblock %}
 {% block body %}
 
-    <h2>Register</h2>
+    <div class="row">
+        <div class="col-lg-3 col-sm-0"></div>
+        <div class="col-lg-6 col-sm-12 form-group">
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="row my-5">
+                    <p class="my-2"><strong>Personal Information</strong></p>
+                    <div class="row">
+                        <div class="col-2">
+                            {{ form.prefix.label }}
+                            {{ form.prefix }}
+                        </div>
+                        <div class="col-5">
+                            {{ form.first_name.label }}
+                            {{ form.first_name }}
+                        </div>
+                        <div class="col-5">
+                            {{ form.last_name.label }}
+                            {{ form.last_name }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            {{ form.gender.label }}
+                            {{ form.gender }}
+                        </div>
+                        <div class="col-6">
+                            {{ form.birthday.label }}
+                            {{ form.birthday }}
+                        </div>
+                        <div class="col-3">
+                            {{ form.age.label }}
+                            {{ form.age }}
+                        </div>
+                    </div>
+                </div>
 
-    {% if message %}
-        <div>{{ message }}</div>
-    {% endif %}
+                <hr />
 
-    {% load crispy_forms_tags %}
+                <div class="row my-5">
+                    <p><strong>Address</strong></p>
+                    <div class="row">
+                        <div class="col-7">
+                            {{ form.street.label }}
+                            {{ form.street }}
+                        </div>
+                        <div class="col-5">
+                            {{ form.house_number.label }}
+                            {{ form.house_number }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            {{ form.city.label }}
+                            {{ form.city }}
+                        </div>
+                        <div class="col-5">
+                            {{ form.postcode.label }}
+                            {{ form.postcode }}
+                        </div>
+                    </div>
+                </div>
 
-    <form action="{% url 'register' %}" method="post">
-        <div class="form-group">
-            <div>
-                <label class="form-label" for="username">Username</label>
-                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
-            </div>
+                <hr/>
 
-            <div>
-                <label class="form-label" for="email">Email</label>
-                <input class="form-control" type="email" name="email" placeholder="Email Address">
-            </div>
-            <div>
-                <label class="form-label" for="password">Password</label>
-                <input class="form-control" type="password" name="password" placeholder="Password">
-            </div>
-            <div>
-                <label class="form-label" for="confirmation">Confirm Password</label>
-                <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-            </div>
+                <div class="row my-5">
+                    <p><strong>Account</strong></p>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.username.label }}
+                            {{ form.username }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.email.label }}
+                            {{ form.email }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {{ form.password.label }}
+                            {{ form.password }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            Confirm Password
+                            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                        </div>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Register">
+            </form>
+            <p class="my-3">Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
         </div>
-        {% csrf_token %}
-        {{ form.prefix | as_crispy_field }}
-        {{ form.first_name | as_crispy_field }}
-        {{ form.last_name | as_crispy_field }}
-        {{ form.gender | as_crispy_field }}
-        {{ form.age | as_crispy_field }}
-        {{ form.birthday | as_crispy_field }}
+        <div class="col-lg-3"></div>
+    </div>
 
-        {{ form.street | as_crispy_field }}
-        {{ form.house_number | as_crispy_field }}
-        {{ form.postcode | as_crispy_field }}
-        {{ form.city | as_crispy_field }}
-
-        {{ form.username | as_crispy_field }}
-        {{ form.email | as_crispy_field }}
-        {{ form.password | as_crispy_field }}
-        <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-
-        <input class="btn btn-primary" type="submit" value="Register">
-    </form>
-
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
 
 {% endblock %}

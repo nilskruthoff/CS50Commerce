@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section border border-1 rounded-3 my-5">
     <h1 class="subheader">Details</h1>
     <table class="card-body">
         <tbody class="my-3 table-details">
@@ -28,17 +28,7 @@
             </tr>
         </tbody>
     </table>
-    {% if auction.is_active %}
-    <div class="active-tag shadow-sm">
-        <i class="fa-solid fa-circle active-circle"></i>
-        active
-    </div>
-    {% else %}
-    <div class="inactive-tag shadow-sm">
-        <i class="fa-solid fa-circle inactive-circle"></i>
-        inactive
-    </div>
-    {% endif %}
+    {% include 'auctions/includes/tags.html' %}
     <div>
         <p class="d-flex align-items-center justify-content-end">Anzeigennr. {{ auction.id }}</p>
     </div>

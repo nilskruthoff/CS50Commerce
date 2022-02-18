@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section border border-1 rounded-3 my-5">
     <div class="card-body">
         <h1 class="title">{{ auction.title }}</h1>
         <h1 class="price text-primary">{{ auction.price }}€</h1>
@@ -23,9 +23,9 @@
 
         {% if authenticated %}
             {% if on_watchlist %}
-            <a class="watchlist my-3 shadow-sm" href="{% url 'remove_watchlist' auction.id %}">Remove from Watchlist</a>
+            <a class="btn btn-outline-primary shadow-sm" href="{% url 'remove_watchlist' auction.id %}">Remove from Watchlist</a>
             {% else %}
-            <a class="watchlist my-3 shadow-sm" href="{% url 'add_watchlist' auction.id %}">Add to Watchlist</a>
+            <a class="btn btn-outline-primary shadow-sm" href="{% url 'add_watchlist' auction.id %}">Add to Watchlist</a>
             {% endif %}
         {% endif %}
 

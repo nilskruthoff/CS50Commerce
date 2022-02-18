@@ -1,0 +1,13 @@
+{% if auction.is_active %}
+    <!-- Active Tag -->
+    <div class="active-tag shadow-sm bg-success bg-gradient">
+        <i class="fa-solid fa-circle active-circle"></i>
+        active
+    </div>
+{% else %}
+    <!-- Inactive Tag -->
+    <div class="inactive-tag shadow-sm bg-danger bg-gradient">
+        <i class="fa-solid fa-circle inactive-circle"></i>
+        inactive
+    </div>
+{% endif %}

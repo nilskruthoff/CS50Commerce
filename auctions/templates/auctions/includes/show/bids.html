@@ -1,4 +1,4 @@
-<div class="section">
+<div class="section border border-1 rounded-3 my-5">
     <h1 class="card-title">Bids</h1>
     {% if authenticated %}
     {% if auction.is_active %}
@@ -15,7 +15,7 @@
                 >
             </div>
             <div class="col text-center">
-                <input type="submit" class="place-bid link-primary shadow-sm" value="Place Bid">
+                <input type="submit" class="btn btn-outline-primary shadow-sm" value="Place Bid">
             </div>
             <div class="col text-center text-muted">
                 <small>Bid must be higher than {{ auction.price }}€</small>

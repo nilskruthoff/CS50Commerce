@@ -15,7 +15,7 @@
 <body>
 
     <!-- Navigation Bar -->
-    {% include 'auctions/base/base.navbar.html' %}
+    {% include 'auctions/includes/base/navbar.html' %}
 
     <!-- Page header with heading and subheading -->
     <header class="bg-light py-5">
@@ -33,11 +33,12 @@
 
     <!-- Main content -->
     <div class="container">
+        {% include 'auctions/includes/messages.html' %}
         {% block body %}{% endblock %}
     </div>
 
     <!-- Page Footer -->
-    {% include 'auctions/base/base.footer.html' %}
+    {% include 'auctions/includes/base/footer.html' %}
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->

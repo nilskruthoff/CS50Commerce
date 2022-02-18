@@ -1,4 +1,4 @@
-{% extends "auctions/base/base.html" %}
+{% extends "auctions/base.html" %}
 {% load static %}
 
 {% block head_tag %}
@@ -15,9 +15,6 @@
 
 
 {% block body %}
-
-    {% include 'auctions/includes/messages.html' %}
-
     <div class="row py-5">
         <div class="col-lg-2 col-sm-0"></div>
         <div class="col-lg-8 col-sm-12">
@@ -27,19 +24,15 @@
 
             <!-- Overview Section -->
             {% include 'auctions/includes/show/overview.html' %}
-            <hr/>
 
             <!-- Details Section -->
             {% include 'auctions/includes/show/details.html' %}
-            <hr/>
 
             <!-- Bid Section -->
             {% include 'auctions/includes/show/bids.html' %}
-            <hr/>
 
             <!-- Description Section -->
             {% include 'auctions/includes/show/description.html' %}
-            <hr/>
 
             <!-- Comment Section -->
             {% include 'auctions/includes/show/comments.html' %}

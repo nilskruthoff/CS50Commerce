@@ -1,13 +1,13 @@
-<div class="section">
+<div class="section border border-1 rounded-3 my-5">
     <h1 class="subheader">Comments</h1>
     {% load crispy_forms_tags %}
     {% if auction.is_active %}
     <details class="my-5">
-        <summary class="link-primary">Write a Comment</summary>
+        <summary class="btn btn-outline-primary">Write a Comment</summary>
         <form action="{% url 'add_comment' auction.id %}" method="post" class="form-group">
             {% csrf_token %}
             {{ comment_form }}
-            <input type="submit" class="create_comment link-primary shadow-sm" value="Create Comment">
+            <input type="submit" class="btn btn-outline-primary shadow-sm" value="Create Comment">
         </form>
     </details>
     {% endif %}

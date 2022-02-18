@@ -3,7 +3,7 @@
 {% for auction in auctions %}
 {% if forloop.first %}<div class="row">{% endif %}
 <div class="col-lg-4 col-sm-12 d-flex align-items-stretch py-5">
-    <div class="index-card shadow">
+    <div class="index-card shadow bg-white">
         <a href="{% url 'show_auction' auction.id %}" class="index-link">
             <!-- Auction Image -->
             <img src="{% static auction.url %}" class="card-img-top img-show_auction" alt="{{ auction.title }}">

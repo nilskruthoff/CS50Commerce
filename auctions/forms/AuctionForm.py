@@ -2,7 +2,6 @@ from django import forms
 from django.forms import ModelForm
 
 from auctions.models import Auction
-from datetime import datetime, timedelta
 
 
 class DateInput(forms.DateInput):

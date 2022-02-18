@@ -1,9 +1,8 @@
+import datetime
+
 from django.forms import model_to_dict
 
-from . import BidService
 from ..models import Auction, User
-from PIL import Image
-import datetime
 
 
 def add_auction(request, auction: Auction, form):

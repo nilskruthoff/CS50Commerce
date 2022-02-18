@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
 from django.shortcuts import redirect
 
-from auctions.models import Auction
 from auctions.models.Watchlist import Watchlist
 from auctions.services import AuctionsService, WatchlistService
 

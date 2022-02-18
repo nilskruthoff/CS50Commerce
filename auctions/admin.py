@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.contrib.admin import ModelAdmin, register
 
 from auctions.models.Auction import Auction

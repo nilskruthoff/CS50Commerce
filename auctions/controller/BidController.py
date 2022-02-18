@@ -1,9 +1,8 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
-from auctions.models import Bid, Auction
+from auctions.models import Bid
 from auctions.services import AuctionsService, BidService
 
 

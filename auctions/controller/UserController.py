@@ -1,7 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate, get_user_model
-from django.contrib.auth.models import User
-from django.db import IntegrityError
+from django.contrib.auth import login, logout, authenticate
 from django.shortcuts import render, redirect
 
 from auctions.forms.UserForm import UserRegistrationForm

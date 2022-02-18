@@ -1,9 +1,6 @@
 from datetime import datetime
 
-from django.http import HttpResponse
-
 from auctions.models import Auction, Bid
-from auctions.services import AuctionsService
 
 
 def add_bid(request, bid: Bid, auction: Auction):

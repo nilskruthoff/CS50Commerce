@@ -1,7 +1,6 @@
 from datetime import datetime
 
 from auctions.models import Auction, Comment
-from auctions.services import BidService
 
 
 def get_comments(auction: Auction) -> list:

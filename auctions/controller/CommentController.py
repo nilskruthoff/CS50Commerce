@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
 
 from auctions.forms.CommentForm import CommentForm
-from auctions.models import Comment, Auction
+from auctions.models import Comment
 from auctions.services import AuctionsService, CommentService
 
 

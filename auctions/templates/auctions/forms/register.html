@@ -3,106 +3,24 @@
 {% block header %}
     Register
 {% endblock %}
+{% load crispy_forms_tags %}
+
 {% block body %}
-
-    <div class="row">
-        <div class="col-lg-3 col-sm-0"></div>
-        <div class="col-lg-6 col-sm-12 form-group">
-            <form action="{% url 'register' %}" method="post">
-                {% csrf_token %}
-                <div class="row my-5">
-                    <p class="my-2"><strong>Personal Information</strong></p>
-                    <div class="row">
-                        <div class="col-2">
-                            {{ form.prefix.label }}
-                            {{ form.prefix }}
-                        </div>
-                        <div class="col-5">
-                            {{ form.first_name.label }}
-                            {{ form.first_name }}
-                        </div>
-                        <div class="col-5">
-                            {{ form.last_name.label }}
-                            {{ form.last_name }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
-                            {{ form.gender.label }}
-                            {{ form.gender }}
-                        </div>
-                        <div class="col-6">
-                            {{ form.birthday.label }}
-                            {{ form.birthday }}
-                        </div>
-                        <div class="col-3">
-                            {{ form.age.label }}
-                            {{ form.age }}
-                        </div>
-                    </div>
-                </div>
-
-                <hr />
-
-                <div class="row my-5">
-                    <p><strong>Address</strong></p>
-                    <div class="row">
-                        <div class="col-7">
-                            {{ form.street.label }}
-                            {{ form.street }}
-                        </div>
-                        <div class="col-5">
-                            {{ form.house_number.label }}
-                            {{ form.house_number }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            {{ form.city.label }}
-                            {{ form.city }}
-                        </div>
-                        <div class="col-5">
-                            {{ form.postcode.label }}
-                            {{ form.postcode }}
-                        </div>
-                    </div>
-                </div>
-
-                <hr/>
-
-                <div class="row my-5">
-                    <p><strong>Account</strong></p>
-                    <div class="row">
-                        <div class="col-12">
-                            {{ form.username.label }}
-                            {{ form.username }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            {{ form.email.label }}
-                            {{ form.email }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            {{ form.password.label }}
-                            {{ form.password }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            Confirm Password
-                            <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
-                        </div>
-                    </div>
-                </div>
-                <input class="btn btn-primary" type="submit" value="Register">
-            </form>
-            <p class="my-3">Already have an account? <a href="{% url 'login' %}">Log In here.</a></p>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Register Now</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">Already Have An Account?
+                <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+            </small>
         </div>
-        <div class="col-lg-3"></div>
     </div>
-
-
 {% endblock %}

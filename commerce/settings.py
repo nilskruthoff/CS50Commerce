@@ -15,6 +15,8 @@ import os
 from django.urls import reverse
 import django_resized
 from django.contrib.messages import constants as messages
+from django.contrib.auth import get_user_model
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

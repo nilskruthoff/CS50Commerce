@@ -11,12 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 import os
 
+import django_resized
+from django.contrib.auth import get_user_model
+from django.contrib.messages import constants as messages
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 from django.urls import reverse
-import django_resized
-from django.contrib.messages import constants as messages
-from django.contrib.auth import get_user_model
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
